@@ -1,0 +1,62 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(https://tinamys.com/_next/static/media/loginBanner.f7fc6e11.svg) no-repeat 50% fixed;
+    min-height: 100%;
+    min-width: 100%;
+    height: 100vh;
+    border-radius: 8px;
+}
+
+.container-login {
+    background: hsla(0, 0%, 100%, 0.7);
+    border: 3px solid #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    min-width: 450px;
+    padding: 30px;
+}
+
+.container-login {
+}
+
+.login-text {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 3.2rem;
+}
+
+.login-desc {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: rgba(43, 43, 43, 0.5);
+    margin-top: 10px;
+    margin-bottom: 24px;
+}
+
+.login-form {
+    label {
+        font-weight: 600;
+        font-size: 1.6rem !important;
+        line-height: 24px;
+        margin-bottom: 5px;
+        color: #242424;
+
+        &::before {
+            content: '' !important;
+        }
+    }
+}
+
+.login-form-forgot {
+    color: #2b2b2b;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    display: flex;
+    float: right;
+}
