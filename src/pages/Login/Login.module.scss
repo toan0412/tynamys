@@ -1,12 +1,22 @@
 .wrapper {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    justify-items: center;
+    flex-direction: row;
     background: url(https://tinamys.com/_next/static/media/loginBanner.f7fc6e11.svg) no-repeat 50% fixed;
     min-height: 100%;
     min-width: 100%;
     height: 100vh;
     border-radius: 8px;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    position: absolute;
+    right: 16px;
+    top: 16px;
 }
 
 .container-login {
@@ -19,6 +29,19 @@
 }
 
 .container-login {
+    .text-router-register {
+        color: #0b3a82;
+        font-weight: 600;
+        font-size: 14px;
+        margin-left: 3px;
+        cursor: pointer;
+    }
+}
+.text-title {
+    padding-right: 200px;
+    font-weight: 700;
+    font-size: 6vw;
+    color: rgba(27, 49, 133, 0.8);
 }
 
 .login-text {
@@ -40,9 +63,10 @@
 
 .login-form {
     label {
+        padding-top: 8px !important;
         font-weight: 600;
         font-size: 1.6rem !important;
-        line-height: 24px;
+        line-height: 24px !important;
         margin-bottom: 5px;
         color: #242424;
 
@@ -59,4 +83,28 @@
     margin-bottom: 12px;
     display: flex;
     float: right;
+}
+
+.form-register {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+    color: #2b2b2b;
+    font-weight: 400;
+    font-size: 1.4rem;
+}
+
+.footer {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    justify-content: space-between;
+    bottom: 28px;
+    a[href] {
+        padding: 0 20px;
+        color: rgb(96 165 250 / 1);
+        text-decoration: none;
+        transition: color 0.3s;
+        background-color: transparent;
+    }
 }

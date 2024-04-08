@@ -2,9 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary: #fe2c55;
-    --black: #000;
-    --text-color: #333;
+    --background: #fff;
+    --ds-text-1: #172b4d;
+    --ds-text-light: #242424;
+    --ds-text-dark: #f1f1f1;
+    --ds-text-select: #459bff;
+    --ds-text-link: #fff;
+    --ds-text-sub: #575757;
+    --ds-icon: #575757;
+    --ds-background-title-focus: #f2faff;
+    --ds-background-title-hover: #091e420f;
+    --ds-background-light-btn-submit: #0070ff;
+    --ds-background-light-btn-cancel: #ec5962;
+    --ds-background-hover: #459bff;
+    --dynammic-nav-item-hover: #a6c5e229;
+    --dynammic-nav-item-select: #ffffff3d;
+    --ds-border: #dcdcdc;
     //Default layout
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
