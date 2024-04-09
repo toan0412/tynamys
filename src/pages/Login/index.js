@@ -3,14 +3,42 @@ import styles from './Login.module.scss';
 import { Form, Input, Button } from 'antd';
 import { GoogleLogin } from '@react-oauth/google';
 import images from '~/assets';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loginApi } from '~/services/UserServices';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loadingIcon, setLoadingIcon] = useState(false);
+
+    const navigate = useNavigate();
+
     const [form] = Form.useForm();
 
-    const onFinish = (e) => {
-        console.log(e);
+    useEffect(() => {
+        let token = localStorage.getItem('token');
+        if (token) {
+            navigate('/');
+        }
+    }, []);
+
+    const onFinish = async () => {
+        setLoadingIcon(true);
+        let res = await loginApi(email, password);
+        if (res && res.data.accessToken) {
+            localStorage.setItem('token', res.data.accessToken);
+            navigate('/');
+        } else {
+            if (res && res.status === 400) {
+                console.log(res.data.error);
+            }
+        }
+        setLoadingIcon(false);
     };
     return (
         <div className={cx('wrapper')}>
@@ -46,7 +74,12 @@ function Login() {
                                 },
                             ]}
                         >
-                            <Input size="large" placeholder="Email hoặc tên tài khoản" />
+                            <Input
+                                value={email}
+                                size="large"
+                                placeholder="Email hoặc tên tài khoản"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </Form.Item>
                         <Form.Item
                             label="Mật khẩu"
@@ -59,7 +92,13 @@ function Login() {
                                 { min: 6, message: 'Mật khẩu không được ngắn hơn 6 ký tự' },
                             ]}
                         >
-                            <Input.Password size="large" type="password" placeholder="Mật khẩu" />
+                            <Input.Password
+                                value={password}
+                                size="large"
+                                type="password"
+                                placeholder="Mật khẩu"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </Form.Item>
                         <Form.Item labelCol={{ span: 0 }}>
                             <a className={cx('login-form-forgot')} href="#">
@@ -71,8 +110,11 @@ function Login() {
                                 span: 24,
                             }}
                         >
-                            <Button size="large" block type="primary" htmlType="submit">
-                                Đăng nhập
+                            <Button size="large" block type="primary" htmlType="submit" className={cx('submit-btn')}>
+                                <span>Đăng nhập</span>
+                                {loadingIcon && (
+                                    <FontAwesomeIcon icon={faCircleNotch} spin style={{ marginLeft: '8px' }} />
+                                )}
                             </Button>
                         </Form.Item>
                         <GoogleLogin

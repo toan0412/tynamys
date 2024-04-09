@@ -2,10 +2,14 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets';
+
+import { useState } from 'react';
 import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Space, Divider, Button, theme } from 'antd';
+import { Modal, Dropdown, Space, Divider, Button, theme } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+
 const { useToken } = theme;
 
 const cx = classNames.bind(styles);
@@ -36,6 +40,12 @@ const items = [
 ];
 function Header() {
     const { token } = useToken();
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
 
     const contentStyle = {
         backgroundColor: token.colorBgElevated,
@@ -45,6 +55,21 @@ function Header() {
     const menuStyle = {
         boxShadow: 'none',
     };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -87,7 +112,31 @@ function Header() {
                         </a>
                     </Dropdown>
                     <div className={cx('add-quick-card-btn')}>
-                        <Button type="primary">Tạo nhanh</Button>
+                        <Button type="primary" onClick={showModal}>
+                            Tạo nhanh
+                        </Button>
+                        <Modal
+                            wrapClassName="modal-portal"
+                            title={
+                                <div className={cx('title-wrap__modal-portal ')}>
+                                    <div className={cx('title__modal-portal')}>Tạo thẻ nhanh</div>
+                                </div>
+                            }
+                            open={isModalOpen}
+                            onOk={handleOk}
+                            onCancel={handleCancel}
+                            width={410}
+                            className="add-quick-card-modal"
+                            footer={[
+                                <Button key="submit" type="primary" onClick={handleOk}>
+                                    Thêm thẻ
+                                </Button>,
+                            ]}
+                        >
+                            <p>Some contents...</p>
+                            <p>Some contents...</p>
+                            <p>Some contents...</p>
+                        </Modal>
                     </div>
                 </div>
 
@@ -108,10 +157,12 @@ function Header() {
                         <img src={images.creditCard} alt="creditCard" />
                     </div>
                     <div className={cx('avatar')}>
-                        <img
-                            src="https://lh3.googleusercontent.com/a/ACg8ocIp6zIFl2G32WoIaZW3jYyo3ge7KLKLzW7FuCTFqufS5XQ4F4Sy=s96-c"
-                            alt="avatar"
-                        />
+                        <button onClick={() => handleLogOut()}>
+                            <img
+                                src="https://lh3.googleusercontent.com/a/ACg8ocIp6zIFl2G32WoIaZW3jYyo3ge7KLKLzW7FuCTFqufS5XQ4F4Sy=s96-c"
+                                alt="avatar"
+                            />
+                        </button>
                     </div>
                 </div>
             </div>
