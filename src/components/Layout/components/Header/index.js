@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets';
@@ -9,6 +9,7 @@ import { Modal, Dropdown, Space, Divider, Button, theme } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '~/context/UserContext';
 
 const { useToken } = theme;
 
@@ -39,11 +40,13 @@ const items = [
     },
 ];
 function Header() {
+    const { user, logout } = useContext(UserContext);
+
     const { token } = useToken();
     const navigate = useNavigate();
 
     const handleLogOut = () => {
-        localStorage.removeItem('token');
+        logout();
         navigate('/login');
     };
 
@@ -158,10 +161,7 @@ function Header() {
                     </div>
                     <div className={cx('avatar')}>
                         <button onClick={() => handleLogOut()}>
-                            <img
-                                src="https://lh3.googleusercontent.com/a/ACg8ocIp6zIFl2G32WoIaZW3jYyo3ge7KLKLzW7FuCTFqufS5XQ4F4Sy=s96-c"
-                                alt="avatar"
-                            />
+                            {user && user.auth ? <img src={user.userInfo.avatarUrl} alt="avatar" /> : <div>as</div>}
                         </button>
                     </div>
                 </div>

@@ -3,11 +3,12 @@ import styles from './Login.module.scss';
 import { Form, Input, Button } from 'antd';
 import { GoogleLogin } from '@react-oauth/google';
 import images from '~/assets';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginApi } from '~/services/UserServices';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +16,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loadingIcon, setLoadingIcon] = useState(false);
+    const { loginContext, user } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ function Login() {
         setLoadingIcon(true);
         let res = await loginApi(email, password);
         if (res && res.data.accessToken) {
-            localStorage.setItem('token', res.data.accessToken);
+            loginContext(email, res.data.accessToken, res.data.user);
             navigate('/');
         } else {
             if (res && res.status === 400) {
