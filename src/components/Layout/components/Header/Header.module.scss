@@ -74,11 +74,16 @@
 
 .action-item {
     padding-right: 12px;
+    cursor: pointer;
+}
+
+.action-item:last-child {
+    padding-bottom: 6px;
+    svg {
+        display: none !important;
+    }
 }
 
 //Modal add-quick-card
-.ant-modal-content {
-    button {
-        background-color: red;
-    }
-}
+
+//Menu dropdown

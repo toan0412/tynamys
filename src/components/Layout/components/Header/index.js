@@ -5,15 +5,15 @@ import images from '~/assets';
 
 import { useState } from 'react';
 import { DownOutlined } from '@ant-design/icons';
-import { Modal, Dropdown, Space, Button } from 'antd';
+import { Modal, Dropdown, Space, Button, Menu, Avatar } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
 import { UserContext } from '~/context/UserContext';
+import MenuDropDown from '../MenuDropDown/MenuDropDown';
 
 const cx = classNames.bind(styles);
 
-const items = [
+const workspaceItem = [
     {
         key: '1',
         label: (
@@ -37,15 +37,9 @@ const items = [
         ),
     },
 ];
+
 function Header() {
     const { user, logout } = useContext(UserContext);
-
-    const navigate = useNavigate();
-
-    const handleLogOut = () => {
-        logout();
-        navigate('/login');
-    };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -67,9 +61,13 @@ function Header() {
                 <div className={cx('workspace')}>
                     <img className={cx('logo')} src={images.logo} alt="Tinamys logo" />
                     <Dropdown
-                        menu={{
-                            items,
-                        }}
+                        menu={
+                            <Menu>
+                                {workspaceItem.map((item) => (
+                                    <Menu.Item key={item.key}>{item.label}</Menu.Item>
+                                ))}
+                            </Menu>
+                        }
                         trigger={['click']}
                     >
                         <a onClick={(e) => e.preventDefault()}>
@@ -124,24 +122,8 @@ function Header() {
                     <div className={cx('action-item')}>
                         <img src={images.creditCard} alt="creditCard" />
                     </div>
-                    <div className={cx('avatar')}>
-                        <Dropdown
-                            menu={{
-                                items,
-                            }}
-                            trigger={['click']}
-                        >
-                            <a onClick={(e) => e.preventDefault()}>
-                                <Space>
-                                    {user && user.auth ? (
-                                        <img src={user.userInfo.avatarUrl} alt="avatar" />
-                                    ) : (
-                                        <div>User not found</div>
-                                    )}
-                                    <DownOutlined />
-                                </Space>
-                            </a>
-                        </Dropdown>
+                    <div className={cx('action-item')}>
+                        <MenuDropDown />
                     </div>
                 </div>
             </div>
