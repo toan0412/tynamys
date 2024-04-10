@@ -32,11 +32,11 @@ const items = [
     {
         key: '2',
         label: (
-            <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-                2nd menu item (disabled)
-            </a>
+            <Button type="primary" ghost>
+                <FontAwesomeIcon icon={faAdd} />
+                <span>Tạo không gian làm việc</span>
+            </Button>
         ),
-        disabled: true,
     },
 ];
 function Header() {
@@ -48,15 +48,6 @@ function Header() {
     const handleLogOut = () => {
         logout();
         navigate('/login');
-    };
-
-    const contentStyle = {
-        backgroundColor: token.colorBgElevated,
-        borderRadius: token.borderRadiusLG,
-        boxShadow: token.boxShadowSecondary,
-    };
-    const menuStyle = {
-        boxShadow: 'none',
     };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,33 +70,10 @@ function Header() {
                 <div className={cx('workspace')}>
                     <img className={cx('logo')} src={images.logo} alt="Tinamys logo" />
                     <Dropdown
-                        className={cx('header-dropdown')}
                         menu={{
                             items,
                         }}
                         trigger={['click']}
-                        dropdownRender={(menu) => (
-                            <div style={contentStyle}>
-                                {React.cloneElement(menu, {
-                                    style: menuStyle,
-                                })}
-                                <Divider
-                                    style={{
-                                        margin: 0,
-                                    }}
-                                />
-                                <Space
-                                    style={{
-                                        padding: 4,
-                                    }}
-                                >
-                                    <Button type="primary" ghost>
-                                        <FontAwesomeIcon icon={faAdd} />
-                                        <span>Tạo không gian làm việc</span>
-                                    </Button>
-                                </Space>
-                            </div>
-                        )}
                     >
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
@@ -160,9 +128,23 @@ function Header() {
                         <img src={images.creditCard} alt="creditCard" />
                     </div>
                     <div className={cx('avatar')}>
-                        <button onClick={() => handleLogOut()}>
-                            {user && user.auth ? <img src={user.userInfo.avatarUrl} alt="avatar" /> : <div>as</div>}
-                        </button>
+                        <Dropdown
+                            menu={{
+                                items,
+                            }}
+                            trigger={['click']}
+                        >
+                            <a onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                    {user && user.auth ? (
+                                        <img src={user.userInfo.avatarUrl} alt="avatar" />
+                                    ) : (
+                                        <div>User not found</div>
+                                    )}
+                                    <DownOutlined />
+                                </Space>
+                            </a>
+                        </Dropdown>
                     </div>
                 </div>
             </div>
