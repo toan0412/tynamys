@@ -5,13 +5,11 @@ import images from '~/assets';
 
 import { useState } from 'react';
 import { DownOutlined } from '@ant-design/icons';
-import { Modal, Dropdown, Space, Divider, Button, theme } from 'antd';
+import { Modal, Dropdown, Space, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '~/context/UserContext';
-
-const { useToken } = theme;
 
 const cx = classNames.bind(styles);
 
@@ -42,7 +40,6 @@ const items = [
 function Header() {
     const { user, logout } = useContext(UserContext);
 
-    const { token } = useToken();
     const navigate = useNavigate();
 
     const handleLogOut = () => {
