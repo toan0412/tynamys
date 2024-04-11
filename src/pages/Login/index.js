@@ -16,7 +16,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loadingIcon, setLoadingIcon] = useState(false);
-    const { loginContext, user } = useContext(UserContext);
+    const { loginContext } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -62,7 +62,7 @@ function Login() {
                         form={form}
                         labelCol={{ span: 24 }}
                         initialValues={{
-                            remember: false,
+                            remember: true,
                         }}
                         onFinish={onFinish}
                         autoComplete="off"

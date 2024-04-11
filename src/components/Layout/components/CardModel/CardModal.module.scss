@@ -77,8 +77,45 @@
 }
 
 //Modal add-quick-card
-.ant-modal-content {
-    button {
-        background-color: red;
+
+.modal-header {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.6rem;
+    color: #575757;
+}
+
+.custom-label {
+    margin-bottom: 20px;
+    label:only-child {
+        font-size: 1.6rem !important;
+        color: #242424;
+        font-weight: 600;
     }
+    label::before {
+        font-family: 'IBM Plex Sans', sans-serif;
+    }
+}
+
+.custom-radio {
+    label:only-child {
+        width: 100%;
+        font-size: 1.6rem !important;
+        color: #242424;
+        font-weight: 600;
+        // padding-bottom: -8px;
+    }
+    label::before {
+        font-family: 'IBM Plex Sans', sans-serif;
+    }
+    label {
+        width: 47%;
+    }
+}
+
+.submit-btn {
+    margin-bottom: 8px !important;
 }

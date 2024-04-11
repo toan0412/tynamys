@@ -4,11 +4,12 @@ import styles from './Header.module.scss';
 import images from '~/assets';
 
 import { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Button } from 'antd';
 import { UserContext } from '~/context/UserContext';
 import MenuDropDown from '../MenuDropDown/MenuDropDown';
 import WorkspaceDropDown from '../WorkspaceDropDown/WorkspaceDropDown';
 import { getAccountInfoApi, getCompaniesListApi } from '~/services/UserServices';
+import CardModal from '../CardModel/CardModal';
 
 const cx = classNames.bind(styles);
 
@@ -17,23 +18,15 @@ function Header() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
     window.addEventListener('load', async function () {
         let res = await getAccountInfoApi();
         let res2 = await getCompaniesListApi();
         userInfoContext(res.data, res2.data);
     });
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
 
     return (
         <header className={cx('wrapper')}>
@@ -47,28 +40,7 @@ function Header() {
                         <Button type="primary" onClick={showModal}>
                             Tạo nhanh
                         </Button>
-                        <Modal
-                            wrapClassName="modal-portal"
-                            title={
-                                <div className={cx('title-wrap__modal-portal ')}>
-                                    <div className={cx('title__modal-portal')}>Tạo thẻ nhanh</div>
-                                </div>
-                            }
-                            open={isModalOpen}
-                            onOk={handleOk}
-                            onCancel={handleCancel}
-                            width={410}
-                            className="add-quick-card-modal"
-                            footer={[
-                                <Button key="submit" type="primary" onClick={handleOk}>
-                                    Thêm thẻ
-                                </Button>,
-                            ]}
-                        >
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
-                        </Modal>
+                        <CardModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                     </div>
                 </div>
 
