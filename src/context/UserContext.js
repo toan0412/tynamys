@@ -17,7 +17,7 @@ const UserProvider = ({ children }) => {
     const userInfoContext = (userInfo, companiesList) => {
         setUser((user) => ({
             userInfo: userInfo,
-            companiesList: [],
+            companiesList: companiesList,
         }));
     };
 

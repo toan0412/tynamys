@@ -6,12 +6,11 @@ import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space, Menu, Avatar, Divider, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { getAccountInfoApi, getCompaniesListApi } from '~/services/UserServices';
 
 const cx = classNames.bind(styles);
 
 function WorkspaceDropDown() {
-    const { user, userInfoContext } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const items = user.companiesList.map((company, index) => ({
         key: `${index + 1}`,

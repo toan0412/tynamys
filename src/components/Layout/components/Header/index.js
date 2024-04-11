@@ -8,13 +8,20 @@ import { Modal, Button } from 'antd';
 import { UserContext } from '~/context/UserContext';
 import MenuDropDown from '../MenuDropDown/MenuDropDown';
 import WorkspaceDropDown from '../WorkspaceDropDown/WorkspaceDropDown';
+import { getAccountInfoApi, getCompaniesListApi } from '~/services/UserServices';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    const { user, logout } = useContext(UserContext);
+    const { userInfoContext } = useContext(UserContext);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    window.addEventListener('load', async function () {
+        let res = await getAccountInfoApi();
+        let res2 = await getCompaniesListApi();
+        userInfoContext(res.data, res2.data);
+    });
 
     const showModal = () => {
         setIsModalOpen(true);
