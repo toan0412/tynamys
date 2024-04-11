@@ -5,7 +5,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import images from '~/assets';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginApi } from '~/services/UserServices';
+import { getCompaniesListApi, loginApi } from '~/services/UserServices';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '~/context/UserContext';
@@ -32,9 +32,9 @@ function Login() {
     const onFinish = async () => {
         setLoadingIcon(true);
         let res = await loginApi(email, password);
-        console.log('onfish', res);
+        let res2 = await getCompaniesListApi();
         if (res && res.data.accessToken) {
-            loginContext(res.data.accessToken, res.data.user);
+            loginContext(res.data.accessToken, res.data.user, res2.data);
             navigate('/');
         } else {
             if (res && res.status === 400) {

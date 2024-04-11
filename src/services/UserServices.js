@@ -8,8 +8,12 @@ const loginApi = (email, password) => {
     return axios.post('/v1/auth/login', { email, password });
 };
 
-const getAccountInfo = () => {
+const getAccountInfoApi = () => {
     return axios.get('/v1/users/me');
 };
 
-export { loginApi, getAccountInfo };
+const getCompaniesListApi = () => {
+    return axios.get('/v1/companies?sort=id%2C-createdAt&searchFields%5B%5D=displayName');
+};
+
+export { loginApi, getAccountInfoApi, getCompaniesListApi };

@@ -4,39 +4,12 @@ import styles from './Header.module.scss';
 import images from '~/assets';
 
 import { useState } from 'react';
-import { DownOutlined } from '@ant-design/icons';
-import { Modal, Dropdown, Space, Button, Menu, Avatar } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import { Modal, Button } from 'antd';
 import { UserContext } from '~/context/UserContext';
 import MenuDropDown from '../MenuDropDown/MenuDropDown';
+import WorkspaceDropDown from '../WorkspaceDropDown/WorkspaceDropDown';
 
 const cx = classNames.bind(styles);
-
-const items = [
-    {
-        key: '1',
-        label: (
-            <div className={cx('workspace-dropdown-item')}>
-                <img
-                    className={cx('logo-company')}
-                    src="https://ui-avatars.com/api/?size=256&fontSize=0.5&length=2&name=a&rounded=false&bold=false&background=00897b&color=FFFFFF&uppercase=true&format=png"
-                    alt="logo company"
-                />
-                <span>adu a toàn</span>
-            </div>
-        ),
-    },
-    {
-        key: '2',
-        label: (
-            <Button type="primary" ghost>
-                <FontAwesomeIcon icon={faAdd} />
-                <span>Tạo không gian làm việc</span>
-            </Button>
-        ),
-    },
-];
 
 function Header() {
     const { user, logout } = useContext(UserContext);
@@ -60,14 +33,9 @@ function Header() {
             <div className={cx('inner')}>
                 <div className={cx('workspace')}>
                     <img className={cx('logo')} src={images.logo} alt="Tinamys logo" />
-                    <Dropdown menu={{ items }} trigger={['click']}>
-                        <a onClick={(e) => e.preventDefault()}>
-                            <Space>
-                                Không gian làm việc
-                                <DownOutlined />
-                            </Space>
-                        </a>
-                    </Dropdown>
+
+                    <WorkspaceDropDown />
+
                     <div className={cx('add-quick-card-btn')}>
                         <Button type="primary" onClick={showModal}>
                             Tạo nhanh

@@ -5,13 +5,12 @@ import styles from './MenuDropDown.module.scss';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space, Menu, Avatar, Divider } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { getAccountInfo } from '~/services/UserServices';
-import Sidebar from '../../DefaultLayout/Sidebar';
+import { getAccountInfoApi, getCompaniesListApi } from '~/services/UserServices';
 
 const cx = classNames.bind(styles);
 
 function MenuDropDown() {
-    const { user, logout, userInfo } = useContext(UserContext);
+    const { user, logout, userInfoContext } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleLogOut = () => {
@@ -20,8 +19,8 @@ function MenuDropDown() {
     };
 
     window.addEventListener('load', async function () {
-        let res = await getAccountInfo();
-        userInfo(res.data);
+        let res = await getAccountInfoApi();
+        userInfoContext(res.data);
     });
 
     return (
