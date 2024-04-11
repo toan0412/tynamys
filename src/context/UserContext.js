@@ -1,17 +1,22 @@
 import React from 'react';
 
-const UserContext = React.createContext({ email: '', auth: false, userInfo: {} });
+const UserContext = React.createContext({ auth: false, userInfo: {} });
 
 const UserProvider = ({ children }) => {
-    const [user, setUser] = React.useState({ email: '', auth: false, userInfo: {} });
+    const [user, setUser] = React.useState({ auth: false, userInfo: {} });
 
-    const loginContext = (email, token, userInfo) => {
+    const loginContext = (token, userInfo) => {
         setUser((user) => ({
-            email: email,
             auth: true,
             userInfo: userInfo,
         }));
         localStorage.setItem('token', token);
+    };
+
+    const userInfo = (userInfo) => {
+        setUser((user) => ({
+            userInfo: userInfo,
+        }));
     };
 
     const logout = () => {
@@ -22,7 +27,7 @@ const UserProvider = ({ children }) => {
         }));
     };
 
-    return <UserContext.Provider value={{ user, loginContext, logout }}>{children}</UserContext.Provider>;
+    return <UserContext.Provider value={{ user, loginContext, logout, userInfo }}>{children}</UserContext.Provider>;
 };
 
 export { UserContext, UserProvider };

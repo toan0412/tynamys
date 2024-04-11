@@ -32,8 +32,9 @@ function Login() {
     const onFinish = async () => {
         setLoadingIcon(true);
         let res = await loginApi(email, password);
+        console.log('onfish', res);
         if (res && res.data.accessToken) {
-            loginContext(email, res.data.accessToken, res.data.user);
+            loginContext(res.data.accessToken, res.data.user);
             navigate('/');
         } else {
             if (res && res.status === 400) {
