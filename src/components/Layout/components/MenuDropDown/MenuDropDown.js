@@ -22,7 +22,7 @@ function MenuDropDown() {
         <Dropdown
             arrow={{ pointAtCenter: true }}
             placement="bottomRight"
-            menu={
+            overlay={
                 <Menu className={cx('menu-dropdown')}>
                     <Menu.Item className={cx('menu-dropdown-header')}>
                         <Avatar className={cx('avatar')} src={<img src={user.userInfo.avatarUrl} alt="avatar" />} />

@@ -13,7 +13,7 @@ import MenuDropDown from '../MenuDropDown/MenuDropDown';
 
 const cx = classNames.bind(styles);
 
-const workspaceItem = [
+const items = [
     {
         key: '1',
         label: (
@@ -60,16 +60,7 @@ function Header() {
             <div className={cx('inner')}>
                 <div className={cx('workspace')}>
                     <img className={cx('logo')} src={images.logo} alt="Tinamys logo" />
-                    <Dropdown
-                        menu={
-                            <Menu>
-                                {workspaceItem.map((item) => (
-                                    <Menu.Item key={item.key}>{item.label}</Menu.Item>
-                                ))}
-                            </Menu>
-                        }
-                        trigger={['click']}
-                    >
+                    <Dropdown menu={{ items }} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
                                 Không gian làm việc
