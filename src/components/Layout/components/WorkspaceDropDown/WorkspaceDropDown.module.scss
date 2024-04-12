@@ -11,3 +11,10 @@
         object-fit: cover;
     }
 }
+
+.workspace-dropdown {
+    ul {
+        max-height: 404px;
+        overflow-y: auto;
+    }
+}

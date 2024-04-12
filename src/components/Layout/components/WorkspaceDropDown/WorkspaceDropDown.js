@@ -42,7 +42,12 @@ function WorkspaceDropDown() {
     });
     return (
         <>
-            <Dropdown menu={{ items }} trigger={['click']}>
+            <Dropdown
+                menu={{ items }}
+                trigger={['click']}
+                overlayClassName={cx('workspace-dropdown')}
+                placement="bottomLeft"
+            >
                 <a onClick={(e) => e.preventDefault()}>
                     <Space>
                         Không gian làm việc
