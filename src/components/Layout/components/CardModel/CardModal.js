@@ -65,13 +65,13 @@ function CardModal({ isModalOpen, setIsModalOpen }) {
     const checkTargetLevel = (value) => {
         switch (value) {
             case 1:
-                setIsGroup(false);
-                break;
-            case 2:
                 setIsGroup(true);
                 break;
-            case 3:
+            case 2:
                 setIsGroup(false);
+                break;
+            case 3:
+                setIsGroup(true);
                 break;
             default:
                 break;
@@ -79,7 +79,14 @@ function CardModal({ isModalOpen, setIsModalOpen }) {
     };
 
     return (
-        <Modal open={isModalOpen} onCancel={handleCancel} footer={null} width={410} size="small">
+        <Modal
+            open={isModalOpen}
+            onCancel={handleCancel}
+            footer={null}
+            width={410}
+            size="small"
+            className={cx('card-modal')}
+        >
             <header className={cx('modal-header')}>
                 <h3>Tạo thẻ nhanh</h3>
                 <Divider style={{ margin: '12px 0' }} />

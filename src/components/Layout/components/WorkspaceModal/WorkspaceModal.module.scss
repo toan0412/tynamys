@@ -1,0 +1,51 @@
+.form-big-avatar {
+    position: relative;
+    right: 24px;
+    bottom: 24px;
+    width: calc(100% + 48px);
+    background: linear-gradient(90deg, #8961ff, #71bbff);
+    height: 172px;
+    margin-bottom: 84px;
+
+    .form-small-avatar {
+        position: relative;
+        top: 38px;
+        left: 36px;
+        object-fit: cover;
+        padding-bottom: 50px;
+
+        button {
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top: 200px;
+            left: 150px;
+            font-size: 27px;
+            padding: 0.5rem;
+            background-color: #efefef;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+}
+
+.upload-preview {
+    span {
+        width: 200px !important;
+        height: 200px !important;
+    }
+}
+
+.custom-label {
+    label:only-child {
+        font-size: 1.6rem !important;
+        color: #242424;
+        font-weight: 600;
+        font-family: 'IBM Plex Sans', sans-serif;
+    }
+    label::before {
+        content: ' ' !important;
+        margin-inline-end: 0 !important;
+    }
+}

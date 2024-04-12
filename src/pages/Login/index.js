@@ -43,6 +43,7 @@ function Login() {
         }
         setLoadingIcon(false);
     };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('logo')}>

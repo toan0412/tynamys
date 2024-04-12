@@ -78,6 +78,10 @@
 
 //Modal add-quick-card
 
+.card-modal {
+    top: 30px;
+}
+
 .modal-header {
     display: flex;
     justify-content: center;
@@ -89,7 +93,7 @@
 }
 
 .custom-label {
-    margin-bottom: 20px;
+    margin-bottom: 4px;
     label:only-child {
         font-size: 1.6rem !important;
         color: #242424;
