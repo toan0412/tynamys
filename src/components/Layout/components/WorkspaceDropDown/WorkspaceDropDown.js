@@ -3,31 +3,41 @@ import classNames from 'classnames/bind';
 import styles from './WorkspaceDropDown.module.scss';
 import { UserContext } from '~/context/UserContext';
 import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Space, Menu, Avatar, Divider, Button } from 'antd';
+import { Dropdown, Space, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import WorkspaceModal from '../WorkspaceModal/WorkspaceModal';
+import { patchAccountInfoApi } from '~/services/UserServices';
 
 const cx = classNames.bind(styles);
 
 function WorkspaceDropDown() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { user, getWorkspaceContext } = useContext(UserContext);
+    console.log('xxx', user.companiesList);
 
     const showModal = () => {
         setIsModalOpen(true);
     };
 
-    const { user } = useContext(UserContext);
+    const handleChangeWorkspace = async (workspaceId) => {
+        let res = await patchAccountInfoApi(workspaceId);
+        getWorkspaceContext(res.data.ability);
+    };
 
-    const items = user.companiesList.map((company, index) => ({
-        key: `${index + 1}`,
-        label: (
-            <div className={cx('workspace-dropdown-item')} key={company.id}>
-                <img className={cx('logo-company')} src={company.photoUrl} alt="logo company" />
-                <span>{company.displayName}</span>
-            </div>
-        ),
-    }));
+    const items = user.companiesList
+        ? user.companiesList.map((company, index) => ({
+              key: `${index + 1}`,
+              label: (
+                  <button onClick={() => handleChangeWorkspace(company.id)} style={{ backgroundColor: 'inherit' }}>
+                      <div className={cx('workspace-dropdown-item')} key={company.id}>
+                          <img className={cx('logo-company')} src={company.photoUrl} alt="logo company" />
+                          <span>{company.displayName}</span>
+                      </div>
+                  </button>
+              ),
+          }))
+        : [];
 
     items.push({
         key: 'createWorkspace',

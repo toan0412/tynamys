@@ -34,7 +34,7 @@ function MenuDropDown() {
                         <Menu.Item>Thông tin tài khoản</Menu.Item>
                         <Menu.Item>Đánh giá</Menu.Item>
                         <Menu.Item>Chính sách về quyền riêng tư</Menu.Item>
-                        <Divider />
+                        <Divider className={cx('border-solid')} />
                         <Menu.Item>Language</Menu.Item>
                         <Menu.Item>Đổi mật khẩu</Menu.Item>
                         <Menu.Item>Rời khỏi công ty</Menu.Item>

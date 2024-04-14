@@ -1,17 +1,27 @@
 import React from 'react';
 
-const UserContext = React.createContext({ auth: false, userInfo: {}, companiesLIst: [] });
+const UserContext = React.createContext({ auth: false, userInfo: {}, companiesLIst: [], companyInfo: {} });
 
 const UserProvider = ({ children }) => {
-    const [user, setUser] = React.useState({ auth: false, userInfo: {}, companiesList: [] });
+    const [user, setUser] = React.useState({ auth: false, userInfo: {}, companiesList: [], companyInfo: {} });
 
-    const loginContext = (token, userInfo, companiesList) => {
+    const loginContext = (token, workspaceId, userInfo, companiesList, companyInfo = {}) => {
         setUser((user) => ({
             auth: true,
-            userInfo: userInfo,
-            companiesList: companiesList,
+            userInfo,
+            companiesList,
+            companyInfo,
         }));
         localStorage.setItem('token', token);
+        localStorage.setItem('workspaceId', workspaceId);
+    };
+
+    const getWorkspaceContext = (companyInfo) => {
+        setUser((user) => ({
+            ...user,
+            companyInfo,
+        }));
+        localStorage.setItem('workspaceId', companyInfo.companyId);
     };
 
     const userInfoContext = (userInfo, companiesList) => {
@@ -22,15 +32,16 @@ const UserProvider = ({ children }) => {
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
+        localStorage.clear();
         setUser((user) => ({
-            email: '',
             auth: false,
         }));
     };
 
     return (
-        <UserContext.Provider value={{ user, loginContext, logout, userInfoContext }}>{children}</UserContext.Provider>
+        <UserContext.Provider value={{ user, loginContext, logout, userInfoContext, getWorkspaceContext }}>
+            {children}
+        </UserContext.Provider>
     );
 };
 

@@ -5,7 +5,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import images from '~/assets';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCompaniesListApi, loginApi } from '~/services/UserServices';
+import { getCompaniesListApi, loginApi, patchAccountInfoApi } from '~/services/UserServices';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '~/context/UserContext';
@@ -33,9 +33,21 @@ function Login() {
         setLoadingIcon(true);
         let res = await loginApi(email, password);
         let res2 = await getCompaniesListApi();
-        if (res && res.data.accessToken) {
-            loginContext(res.data.accessToken, res.data.user, res2.data);
-            navigate('/');
+        let res3 = await patchAccountInfoApi(res.data.user.profile.workspaceId);
+        if (res && res2 && res.data.accessToken) {
+            if (res3) {
+                loginContext(
+                    res.data.accessToken,
+                    res.data.user.profile.workspaceId,
+                    res.data.user,
+                    res2.data,
+                    res3.data.ability,
+                );
+                navigate('/');
+            } else {
+                loginContext(res.data.accessToken, res.data.user.profile.workspaceId, res.data.user, res2.data, null);
+                navigate('/');
+            }
         } else {
             if (res && res.status === 400) {
                 console.log(res.data.error);

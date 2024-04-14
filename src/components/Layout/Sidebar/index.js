@@ -1,6 +1,7 @@
 import styles from './Sidebar.module.scss';
 import classNames from 'classnames/bind';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '~/context/UserContext';
 import { Menu, Divider } from 'antd';
 import './Sidebar.scss';
 
@@ -20,48 +21,70 @@ import {
 const cx = classNames.bind(styles);
 
 function Sidebar() {
+    const { user } = useContext(UserContext);
+    const [workspaceId, setWorkspaceId] = useState(localStorage.getItem('workspaceId'));
+    const [defaultOpenKeys, setDefaultOpenKeys] = useState(['workspace']);
+
+    useEffect(() => {
+        const storedWorkspaceId = localStorage.getItem('workspaceId');
+        setWorkspaceId(storedWorkspaceId);
+    }, [localStorage.getItem('workspaceId')]);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('sidebar-wrap')}>
-                <Menu triggerSubMenuAction="click" mode="inline">
-                    <Menu.SubMenu
-                        key="workspace"
-                        title={
-                            <div className={cx('workspace-title')}>
-                                <img
-                                    src="https://ui-avatars.com/api/?size=256&fontSize=0.5&length=2&name=hihi&rounded=false&bold=false&background=e64a19&color=FFFFFF&uppercase=true&format=png"
-                                    alt="logo"
-                                    width={50}
-                                    height={50}
-                                />
-                                <div className={cx('workspace-info')}>
-                                    <p>hihi</p>
-                                    <span>1 nhân sự</span>
-                                </div>
-                            </div>
-                        }
-                        mode="vertical"
-                    >
-                        <Menu.Item key="groupList" className={cx('sidebar-item')} icon={<TeamListIcon />}>
-                            Danh sách nhóm
-                        </Menu.Item>
-                        <Menu.Item key="positionList" className={cx('sidebar-item')} icon={<PositionListIcon />}>
-                            Danh sách chức vụ
-                        </Menu.Item>
-                        <Menu.Item key="personnelList" className={cx('sidebar-item')} icon={<PersonnelListIcon />}>
-                            Danh sách nhân sự
-                        </Menu.Item>
-                        <Menu.Item key="news" className={cx('sidebar-item')} icon={<NewsIcon />}>
-                            Tin tức
-                        </Menu.Item>
-                        <Menu.Item key="newsManagement" className={cx('sidebar-item')} icon={<NewsListIcon />}>
-                            Quản lý tin tức
-                        </Menu.Item>
-                        <Menu.Item key="companyEdit" className={cx('sidebar-item')} icon={<CompanyEditIcon />}>
-                            Chỉnh sửa công ty
-                        </Menu.Item>
-                    </Menu.SubMenu>
-                    <Divider style={{ margin: '16px 0', backgroundColor: '#dcdcdc' }} />
+                <Menu triggerSubMenuAction="click" mode="inline" defaultOpenKeys={defaultOpenKeys}>
+                    {workspaceId !== null && user.companyInfo && user.companyInfo.company && (
+                        <>
+                            <Menu.SubMenu
+                                key="workspace"
+                                title={
+                                    <div className={cx('workspace-title')}>
+                                        <img
+                                            src={user.companyInfo.company.photoUrl}
+                                            alt="logo"
+                                            width={50}
+                                            height={50}
+                                        />
+                                        <div className={cx('workspace-info')}>
+                                            <p>{user.companyInfo.company.displayName}</p>
+                                            <span>{user.companyInfo.company.numberOfUser} Nhân sự</span>
+                                        </div>
+                                    </div>
+                                }
+                                mode="vertical"
+                            >
+                                <Menu.Item key="groupList" className={cx('sidebar-item')} icon={<TeamListIcon />}>
+                                    Danh sách nhóm
+                                </Menu.Item>
+                                <Menu.Item
+                                    key="positionList"
+                                    className={cx('sidebar-item')}
+                                    icon={<PositionListIcon />}
+                                >
+                                    Danh sách chức vụ
+                                </Menu.Item>
+                                <Menu.Item
+                                    key="personnelList"
+                                    className={cx('sidebar-item')}
+                                    icon={<PersonnelListIcon />}
+                                >
+                                    Danh sách nhân sự
+                                </Menu.Item>
+                                <Menu.Item key="news" className={cx('sidebar-item')} icon={<NewsIcon />}>
+                                    Tin tức
+                                </Menu.Item>
+                                <Menu.Item key="newsManagement" className={cx('sidebar-item')} icon={<NewsListIcon />}>
+                                    Quản lý tin tức
+                                </Menu.Item>
+                                <Menu.Item key="companyEdit" className={cx('sidebar-item')} icon={<CompanyEditIcon />}>
+                                    Chỉnh sửa công ty
+                                </Menu.Item>
+                            </Menu.SubMenu>
+                            <Divider style={{ margin: '16px 0', backgroundColor: '#dcdcdc' }} />
+                        </>
+                    )}
+
                     <Menu.Item key="home" className={cx('sidebar-item')} icon={<HomePageIcon />}>
                         Trang chủ
                     </Menu.Item>

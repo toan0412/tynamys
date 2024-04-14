@@ -20,9 +20,9 @@ function WorkspaceModal({ isModalOpen, setIsModalOpen }) {
     const [file, setFile] = useState('https://mys.tinasoft.com.vn/img/modalAddNewCompany/bannerModalAddNew.svg');
 
     const handleCancel = () => {
-        form.resetFields();
         setFile('https://mys.tinasoft.com.vn/img/modalAddNewCompany/bannerModalAddNew.svg');
         setIsModalOpen(false);
+        form.resetFields();
     };
 
     const onFinish = async () => {
@@ -61,7 +61,7 @@ function WorkspaceModal({ isModalOpen, setIsModalOpen }) {
             onCancel={handleCancel}
             width={796}
             size="small"
-            style={{ position: 'absolute', top: '0', left: '0', right: '0', bottom: '0', margin: 'auto' }}
+            // style={{ position: 'absolute', top: '0', left: '0', right: '0', bottom: '0', margin: 'auto' }}
         >
             <Form
                 className={cx('card-modal-form')}
@@ -254,7 +254,6 @@ function WorkspaceModal({ isModalOpen, setIsModalOpen }) {
                                         type="primary"
                                         danger
                                         block
-                                        htmlType="submit"
                                         style={{ margin: '0 12px' }}
                                         onClick={handleCancel}
                                     >

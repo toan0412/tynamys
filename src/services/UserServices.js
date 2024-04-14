@@ -12,6 +12,10 @@ const getAccountInfoApi = () => {
     return axios.get('/v1/users/me');
 };
 
+const patchAccountInfoApi = (workspaceId) => {
+    return axios.patch('/v1/users/me', { profile: { workspaceId: workspaceId } });
+};
+
 const getCompaniesListApi = () => {
     return axios.get('/v1/companies?sort=id%2C-createdAt&searchFields%5B%5D=displayName');
 };
@@ -23,4 +27,4 @@ const getDevelopmentsApi = () => {
 const createCompanyApi = (displayName, website, category, contactPhone, contactEmail, memberSize) => {
     return axios.post('v1/companies', { displayName, website, category, contactPhone, contactEmail, memberSize });
 };
-export { loginApi, getAccountInfoApi, getCompaniesListApi, createCompanyApi };
+export { loginApi, patchAccountInfoApi, getAccountInfoApi, getCompaniesListApi, createCompanyApi };
