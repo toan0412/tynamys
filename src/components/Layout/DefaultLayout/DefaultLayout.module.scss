@@ -6,10 +6,10 @@
 }
 
 .container {
-    width: 1150px;
     display: flex;
+    width: 100%;
 }
 
-.container {
-    flex: 1;
+.content {
+    width: calc(100vw - 250px);
 }

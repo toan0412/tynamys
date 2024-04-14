@@ -6,10 +6,10 @@ import images from '~/assets';
 import { useState } from 'react';
 import { Button } from 'antd';
 import { UserContext } from '~/context/UserContext';
-import MenuDropDown from '../MenuDropDown/MenuDropDown';
-import WorkspaceDropDown from '../WorkspaceDropDown/WorkspaceDropDown';
+import MenuDropDown from '../components/MenuDropDown/MenuDropDown';
+import WorkspaceDropDown from '../components/WorkspaceDropDown/WorkspaceDropDown';
 import { getAccountInfoApi, getCompaniesListApi } from '~/services/UserServices';
-import CardModal from '../CardModel/CardModal';
+import CardModal from '../components/CardModel/CardModal';
 
 const cx = classNames.bind(styles);
 
