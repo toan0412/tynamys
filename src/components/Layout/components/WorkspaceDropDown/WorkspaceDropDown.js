@@ -37,7 +37,7 @@ function WorkspaceDropDown() {
                   label: (
                       <button
                           onClick={() => handleChangeWorkspace(company.id)}
-                          style={{ backgroundColor: 'inherit', width: '100%' }}
+                          style={{ backgroundColor: 'inherit', width: '100%', cursor: 'pointer' }}
                       >
                           <div className={cx('workspace-dropdown-item')} key={company.id}>
                               <img className={cx('logo-company')} src={company.photoUrl} alt="logo company" />

@@ -1,4 +1,8 @@
 .wrapper {
+    height: calc(100vh - 60px);
+    position: sticky;
+    left: 0;
+    top: 60px;
 }
 
 .sidebar-wrap {
@@ -6,6 +10,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    height: calc(100vh - 60px);
 }
 
 .workspace-title {

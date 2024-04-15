@@ -1,0 +1,38 @@
+.homepage {
+    padding: 10px;
+    height: 100%;
+}
+
+.table-target-company {
+    background-color: white;
+    padding: 10px;
+    height: 40%;
+}
+
+.title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.title {
+    position: relative;
+    color: #0a0e63;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    padding-left: 10px;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 3.033px;
+        height: 14.176px;
+        background: #38cab3;
+    }
+}

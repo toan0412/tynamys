@@ -1,0 +1,21 @@
+.notification-header {
+    cursor: default;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    p {
+        font-size: 1.6rem;
+        font-weight: 400;
+    }
+    button {
+        margin-top: 4px;
+        cursor: pointer;
+        color: rgb(69 155 255 / 1);
+        font-size: 1.4rem;
+        font-weight: 400;
+        background-color: inherit;
+    }
+}
