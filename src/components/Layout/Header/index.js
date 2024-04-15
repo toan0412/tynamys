@@ -1,32 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets';
 
 import { useState } from 'react';
 import { Button } from 'antd';
-import { UserContext } from '~/context/UserContext';
 import MenuDropDown from '../components/MenuDropDown/MenuDropDown';
 import WorkspaceDropDown from '../components/WorkspaceDropDown/WorkspaceDropDown';
-import { getAccountInfoApi, getCompaniesListApi } from '~/services/UserServices';
 import CardModal from '../components/CardModel/CardModal';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    const { userInfoContext } = useContext(UserContext);
-
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
         setIsModalOpen(true);
     };
-
-    window.addEventListener('load', async function () {
-        let res = await getAccountInfoApi();
-        let res2 = await getCompaniesListApi();
-        userInfoContext(res.data, res2.data);
-    });
 
     return (
         <header className={cx('wrapper')}>

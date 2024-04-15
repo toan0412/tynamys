@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './WorkspaceDropDown.module.scss';
 import { UserContext } from '~/context/UserContext';
@@ -13,8 +13,13 @@ const cx = classNames.bind(styles);
 
 function WorkspaceDropDown() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { user, getWorkspaceContext } = useContext(UserContext);
-    console.log('xxx', user.companiesList);
+    const [companyList, setCompanyList] = useState(localStorage.getItem('listCompany'));
+    const { getWorkspaceContext } = useContext(UserContext);
+
+    useEffect(() => {
+        const data = localStorage.getItem('listCompany');
+        setCompanyList(JSON.parse(data));
+    }, []);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -25,19 +30,23 @@ function WorkspaceDropDown() {
         getWorkspaceContext(res.data.ability);
     };
 
-    const items = user.companiesList
-        ? user.companiesList.map((company, index) => ({
-              key: `${index + 1}`,
-              label: (
-                  <button onClick={() => handleChangeWorkspace(company.id)} style={{ backgroundColor: 'inherit' }}>
-                      <div className={cx('workspace-dropdown-item')} key={company.id}>
-                          <img className={cx('logo-company')} src={company.photoUrl} alt="logo company" />
-                          <span>{company.displayName}</span>
-                      </div>
-                  </button>
-              ),
-          }))
-        : [];
+    const items =
+        companyList && Array.isArray(companyList)
+            ? companyList.map((company, index) => ({
+                  key: `${index + 1}`,
+                  label: (
+                      <button
+                          onClick={() => handleChangeWorkspace(company.id)}
+                          style={{ backgroundColor: 'inherit', width: '100%' }}
+                      >
+                          <div className={cx('workspace-dropdown-item')} key={company.id}>
+                              <img className={cx('logo-company')} src={company.photoUrl} alt="logo company" />
+                              <span>{company.displayName}</span>
+                          </div>
+                      </button>
+                  ),
+              }))
+            : [];
 
     items.push({
         key: 'createWorkspace',

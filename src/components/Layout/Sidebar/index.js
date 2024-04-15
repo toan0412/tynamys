@@ -21,34 +21,28 @@ import {
 const cx = classNames.bind(styles);
 
 function Sidebar() {
-    const { user } = useContext(UserContext);
-    const [workspaceId, setWorkspaceId] = useState(localStorage.getItem('workspaceId'));
     const [defaultOpenKeys, setDefaultOpenKeys] = useState(['workspace']);
+    const [companySelect, SetCompanySelect] = useState(localStorage.getItem('companySelect'));
 
     useEffect(() => {
-        const storedWorkspaceId = localStorage.getItem('workspaceId');
-        setWorkspaceId(storedWorkspaceId);
-    }, [localStorage.getItem('workspaceId')]);
+        const data = localStorage.getItem('companySelect');
+        SetCompanySelect(JSON.parse(data));
+    }, [localStorage.getItem('companySelect')]);
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('sidebar-wrap')}>
                 <Menu triggerSubMenuAction="click" mode="inline" defaultOpenKeys={defaultOpenKeys}>
-                    {workspaceId !== null && user.companyInfo && user.companyInfo.company && (
+                    {companySelect !== null && companySelect && companySelect.company && (
                         <>
                             <Menu.SubMenu
                                 key="workspace"
                                 title={
                                     <div className={cx('workspace-title')}>
-                                        <img
-                                            src={user.companyInfo.company.photoUrl}
-                                            alt="logo"
-                                            width={50}
-                                            height={50}
-                                        />
+                                        <img src={companySelect.company.photoUrl} alt="logo" width={50} height={50} />
                                         <div className={cx('workspace-info')}>
-                                            <p>{user.companyInfo.company.displayName}</p>
-                                            <span>{user.companyInfo.company.numberOfUser} Nhân sự</span>
+                                            <p>{companySelect.company.displayName}</p>
+                                            <span>{companySelect.company.numberOfUser} Nhân sự</span>
                                         </div>
                                     </div>
                                 }
@@ -100,7 +94,7 @@ function Sidebar() {
                 </Menu>
             </div>
             <div className={cx('minimize-btn')}>
-                <svg class="" width="16" height="20" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="16" height="20" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M6.24895 0.744059C5.93812 0.441891 5.44797 0.420307 5.11153 0.679309L5.03677 0.744059L0.751051 4.91074C0.440225 5.21293 0.418025 5.68946 0.684451 6.01656L0.751051 6.08926L5.03675 10.2559C5.37148 10.5814 5.91419 10.5814 6.24893 10.2559C6.55976 9.95373 6.58198 9.47719 6.31555 9.15009L6.24893 9.07741L2.56995 5.49995L6.24895 1.92257C6.55977 1.6204 6.58198 1.14381 6.31555 0.816726L6.24895 0.744059Z"
                         fill="#A3A3A3"

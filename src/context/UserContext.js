@@ -13,7 +13,10 @@ const UserProvider = ({ children }) => {
             companyInfo,
         }));
         localStorage.setItem('token', token);
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
         localStorage.setItem('workspaceId', workspaceId);
+        localStorage.setItem('listCompany', JSON.stringify(companiesList));
+        localStorage.setItem('companySelect', JSON.stringify(companyInfo));
     };
 
     const getWorkspaceContext = (companyInfo) => {
@@ -22,13 +25,7 @@ const UserProvider = ({ children }) => {
             companyInfo,
         }));
         localStorage.setItem('workspaceId', companyInfo.companyId);
-    };
-
-    const userInfoContext = (userInfo, companiesList) => {
-        setUser((user) => ({
-            userInfo: userInfo,
-            companiesList: companiesList,
-        }));
+        localStorage.setItem('companySelect', JSON.stringify(companyInfo));
     };
 
     const logout = () => {
@@ -39,7 +36,7 @@ const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, loginContext, logout, userInfoContext, getWorkspaceContext }}>
+        <UserContext.Provider value={{ user, loginContext, logout, getWorkspaceContext }}>
             {children}
         </UserContext.Provider>
     );

@@ -35,7 +35,7 @@ function Login() {
         let res2 = await getCompaniesListApi();
         let res3 = await patchAccountInfoApi(res.data.user.profile.workspaceId);
         if (res && res2 && res.data.accessToken) {
-            if (res3) {
+            if (res3.data) {
                 loginContext(
                     res.data.accessToken,
                     res.data.user.profile.workspaceId,
