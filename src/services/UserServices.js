@@ -20,11 +20,24 @@ const getCompaniesListApi = () => {
     return axios.get('/v1/companies?sort=id%2C-createdAt&searchFields%5B%5D=displayName');
 };
 
-const getDevelopmentsApi = () => {
-    return axios.get('v1/departments');
+const getNotificationApi = (applyType) => {
+    return axios.get(`/v1/notifications?filter=%7B%22applyType%22:${applyType}%7D&pageSize=80&pageNumber=1`);
+};
+
+const setAllAsReadApi = (applyType) => {
+    const applyTypeNumber = parseInt(applyType);
+    return axios.post('v1/notifications/set-all-as-read', { applyType: applyTypeNumber });
 };
 
 const createCompanyApi = (displayName, website, category, contactPhone, contactEmail, memberSize) => {
     return axios.post('v1/companies', { displayName, website, category, contactPhone, contactEmail, memberSize });
 };
-export { loginApi, patchAccountInfoApi, getAccountInfoApi, getCompaniesListApi, createCompanyApi };
+export {
+    loginApi,
+    patchAccountInfoApi,
+    getAccountInfoApi,
+    getCompaniesListApi,
+    createCompanyApi,
+    getNotificationApi,
+    setAllAsReadApi,
+};

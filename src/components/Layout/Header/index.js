@@ -9,6 +9,7 @@ import MenuDropDown from '../components/MenuDropDown/MenuDropDown';
 import WorkspaceDropDown from '../components/WorkspaceDropDown/WorkspaceDropDown';
 import CardModal from '../components/CardModel/CardModal';
 import NotificationDropDown from '../components/NotificationDropDown/NotificationDropDown';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -46,13 +47,10 @@ function Header() {
                         <div className={cx('action-item')}>
                             <img src={images.search} alt="search" />
                         </div>
-                        <div
-                            className={cx('action-item')}
-                            onClick={() => {
-                                navigate('./tutorial');
-                            }}
-                        >
-                            <img src={images.graduate} alt="graduate" />
+                        <div className={cx('action-item')}>
+                            <Link to="/tutorial">
+                                <img src={images.graduate} alt="graduate" />
+                            </Link>
                         </div>
 
                         <div className={cx('action-item')}>
