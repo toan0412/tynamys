@@ -32,6 +32,27 @@ const setAllAsReadApi = (applyType) => {
 const createCompanyApi = (displayName, website, category, contactPhone, contactEmail, memberSize) => {
     return axios.post('v1/companies', { displayName, website, category, contactPhone, contactEmail, memberSize });
 };
+
+const getDayTaskApi = (standDate_gte, standDate_lt) => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = `/v1/tasks?filter=%7B%22standDate_gte%22:%22${standDate_gte}%22,%22standDate_lt%22:%22${standDate_lt}%22%7D`;
+    return axios.get(apiUrl, {
+        headers: {
+            'X-Company-Id': workspaceId,
+        },
+    });
+};
+
+const getGoalApi = (applyType, standDate_gte, standDate_lt) => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = `v1/goals?filter=%7B%22applyType%22:${applyType},%22standDate_gte%22:%22${standDate_gte}%22,%22standDate_lt%22:%22${standDate_lt}%22%7D`;
+    return axios.get(apiUrl, {
+        headers: {
+            'X-Company-Id': workspaceId,
+        },
+    });
+};
+
 export {
     loginApi,
     patchAccountInfoApi,
@@ -40,4 +61,6 @@ export {
     createCompanyApi,
     getNotificationApi,
     setAllAsReadApi,
+    getDayTaskApi,
+    getGoalApi,
 };
