@@ -1,7 +1,9 @@
 import styles from './Sidebar.module.scss';
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Menu, Divider } from 'antd';
+import { UserContext } from '~/context/UserContext';
+
 import './Sidebar.scss';
 
 import {
@@ -24,10 +26,12 @@ function Sidebar() {
     const [defaultOpenKeys, setDefaultOpenKeys] = useState(['workspace']);
     const [companySelect, setCompanySelect] = useState(localStorage.getItem('companySelect'));
 
+    const { user } = useContext(UserContext);
+
     useEffect(() => {
         const data = localStorage.getItem('companySelect');
         setCompanySelect(JSON.parse(data));
-    }, [companySelect]);
+    }, [user]);
 
     // useEffect(() => {
     //     function changeSelectCompany() {

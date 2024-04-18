@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styles from './Home.module.scss';
 import { Avatar, DatePicker, Table, Progress } from 'antd';
 import dayjs from 'dayjs';
@@ -7,6 +7,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import './Home.scss';
 import { getDayTaskApi, getGoalApi } from '~/services/UserServices';
+import { UserContext } from '~/context/UserContext';
 import moment from 'moment';
 
 const cx = classNames.bind(styles);
@@ -14,14 +15,21 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 function Home() {
-    const currentTime = dayjs().tz('Asia/Ho_Chi_Minh');
+    let currentTime = dayjs().tz('Asia/Ho_Chi_Minh');
     const [dayTaskData, setDayTaskData] = useState([]);
     const [companyGoal, setCompanyGoal] = useState([]);
     const [personalGoal, setPersonalGoal] = useState([]);
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                currentTime = dayjs().tz('Asia/Ho_Chi_Minh');
+                const currentYear = convertYearString(currentTime);
+                const nextYear = convertYearString(currentTime.add(1, 'year'));
+                const currentDate = convertDateString(currentTime);
+                const nextCurrentDate = convertDateString(currentTime.add(1, 'day'));
+
                 let res = await getDayTaskApi(currentDate, nextCurrentDate);
                 let res2 = await getGoalApi(0, currentYear, nextYear);
                 let res3 = await getGoalApi(1, currentYear, nextYear);
@@ -34,7 +42,7 @@ function Home() {
         };
 
         fetchData();
-    }, [localStorage.getItem('workspaceId')]);
+    }, [user]);
 
     const dateFormat = 'YYYY/MM/DD';
     const convertDateString = (dateString) => {
@@ -45,10 +53,6 @@ function Home() {
         const year = dayjs(dateString).year();
         return dayjs(`${year}-01-01`).toISOString();
     };
-    const currentYear = convertYearString(currentTime);
-    const nextYear = convertYearString(currentTime.add(1, 'year'));
-    const currentDate = convertDateString(currentTime);
-    const nextCurrentDate = convertDateString(currentTime.add(1, 'day'));
 
     const dayMissionData = dayTaskData.map((task, index) => {
         const { title, assignees, toDate } = task;
