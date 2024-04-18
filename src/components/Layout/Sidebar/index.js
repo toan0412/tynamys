@@ -1,7 +1,6 @@
 import styles from './Sidebar.module.scss';
 import classNames from 'classnames/bind';
-import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '~/context/UserContext';
+import React, { useEffect, useState } from 'react';
 import { Menu, Divider } from 'antd';
 import './Sidebar.scss';
 
@@ -17,17 +16,33 @@ import {
     PersonalTarget,
     WorkSchedule,
 } from '~/assets/icons';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
     const [defaultOpenKeys, setDefaultOpenKeys] = useState(['workspace']);
-    const [companySelect, SetCompanySelect] = useState(localStorage.getItem('companySelect'));
+    const [companySelect, setCompanySelect] = useState(localStorage.getItem('companySelect'));
 
     useEffect(() => {
         const data = localStorage.getItem('companySelect');
-        SetCompanySelect(JSON.parse(data));
-    }, [localStorage.getItem('companySelect')]);
+        setCompanySelect(JSON.parse(data));
+    }, [companySelect]);
+
+    // useEffect(() => {
+    //     function changeSelectCompany() {
+    //         const data = localStorage.getItem('companySelect');
+
+    //         if (data) {
+    //             setCompanySelect(JSON.parse(data));
+    //         }
+    //     }
+
+    //     window.addEventListener('storage', changeSelectCompany);
+    //     return () => {
+    //         window.removeEventListener('storage', changeSelectCompany);
+    //     };
+    // }, []);
 
     return (
         <div className={cx('wrapper')}>
@@ -48,9 +63,11 @@ function Sidebar() {
                                 }
                                 mode="vertical"
                             >
-                                <Menu.Item key="groupList" className={cx('sidebar-item')} icon={<TeamListIcon />}>
-                                    Danh sách nhóm
-                                </Menu.Item>
+                                <Link to="/list-department">
+                                    <Menu.Item key="groupList" className={cx('sidebar-item')} icon={<TeamListIcon />}>
+                                        Danh sách nhóm
+                                    </Menu.Item>
+                                </Link>
                                 <Menu.Item
                                     key="positionList"
                                     className={cx('sidebar-item')}

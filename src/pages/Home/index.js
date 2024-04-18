@@ -19,6 +19,23 @@ function Home() {
     const [companyGoal, setCompanyGoal] = useState([]);
     const [personalGoal, setPersonalGoal] = useState([]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let res = await getDayTaskApi(currentDate, nextCurrentDate);
+                let res2 = await getGoalApi(0, currentYear, nextYear);
+                let res3 = await getGoalApi(1, currentYear, nextYear);
+                setDayTaskData(res.data);
+                setCompanyGoal(res2.data);
+                setPersonalGoal(res3.data);
+            } catch (error) {
+                console.error('Error fetching notification data:', error);
+            }
+        };
+
+        fetchData();
+    }, [localStorage.getItem('workspaceId')]);
+
     const dateFormat = 'YYYY/MM/DD';
     const convertDateString = (dateString) => {
         return dayjs(dateString, 'YYYY/MM/DD').toISOString();
@@ -47,23 +64,6 @@ function Home() {
         const { title, assignees, standDate, progress } = goal;
         return { index: index + 1, title, assignees, standDate: moment(standDate).format('DD/MM/YYYY'), progress };
     });
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let res = await getDayTaskApi(currentDate, nextCurrentDate);
-                let res2 = await getGoalApi(0, currentYear, nextYear);
-                let res3 = await getGoalApi(1, currentYear, nextYear);
-                setDayTaskData(res.data);
-                setCompanyGoal(res2.data);
-                setPersonalGoal(res3.data);
-            } catch (error) {
-                console.error('Error fetching notification data:', error);
-            }
-        };
-
-        fetchData();
-    }, [localStorage.getItem('workspaceId')]);
 
     const handleChange = async (dateString) => {
         const convertedDateString = convertDateString(dateString);

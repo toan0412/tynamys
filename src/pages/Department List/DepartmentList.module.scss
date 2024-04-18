@@ -1,0 +1,188 @@
+.department-manager {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.content-department {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.content-main {
+    padding-left: 10px;
+    height: calc(100vh - 60px - 10px);
+    overflow: auto;
+    margin-right: 10px;
+    grid-column: span 3 / span 3;
+}
+
+.content-heading {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    h2 {
+        position: relative;
+        color: var(--mys-gray-800, #3d3d3d);
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 0.45px;
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        top: 14px;
+        left: 2px;
+        width: 3.033px;
+        height: 16.176px;
+        background: #38cab3;
+    }
+}
+
+.list-column-wrapper {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: calc(100vh - 60px - 10px - 70px);
+    padding-bottom: 24px;
+}
+
+.department-level {
+    min-width: 250px;
+    height: fit-content;
+    border-radius: 10px;
+    background-color: hsla(0, 0%, 100%, 0.4);
+    padding-top: 10px;
+    flex: 1 1 0%;
+}
+
+.column-title {
+    color: #3d3d3d;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.list-column {
+    border-right: 1px solid #e3e3e3;
+    padding-right: 12px;
+    min-width: 250px;
+}
+
+.list-department {
+    margin-bottom: 0.625rem;
+    width: 100%;
+    height: fit-content;
+    border-radius: 5px;
+    padding: 0 10px 10px;
+}
+
+.slide-in {
+}
+
+.card-department {
+    display: flex;
+    padding: 8px;
+    min-width: 220px;
+    align-items: center;
+    margin-bottom: 12px;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    transition: all 0.3s ease, border 0.3s ease;
+
+    &:last-child {
+        margin-bottom: unset;
+    }
+}
+
+.card-department-img {
+    display: flex;
+    width: 80px;
+
+    img {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+    }
+}
+.content-wrap {
+    margin-left: 10px;
+    flex: 1;
+
+    h3 {
+        color: #1d1d1d;
+        font-weight: 400;
+        font-size: 1.4rem;
+        line-height: 18px;
+    }
+}
+
+.desc {
+    font-size: 1.2rem;
+    margin-top: -16px;
+    color: #575757;
+    font-weight: 300;
+    padding-bottom: 4px;
+}
+
+.btn-add-dept {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    button {
+        width: calc(100% - 20px);
+    }
+}
+
+//List Member Dept
+
+.member-list-dept {
+    height: calc(100vh - 60px - 10px);
+    overflow: auto;
+    grid-column: span 1 / span 1;
+}
+
+.member-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: #fcfdff;
+    padding: 10px;
+    height: 100%;
+}
+
+.member-list-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+
+    .member-list-title {
+        width: 250px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 1.6rem;
+        line-height: 24px;
+        color: #242424;
+    }
+
+    .member-list-search {
+        padding: 16px 0;
+    }
+}
+.three-dot {
+    position: relative;
+    left: 88px;
+    bottom: 16px;
+    font-weight: 300;
+    opacity: 0.7;
+}

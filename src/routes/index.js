@@ -7,10 +7,12 @@ import Upload from '~/pages/Tutorial';
 import Search from '~/pages/Search';
 import Login from '~/pages/Login';
 import Tutorial from '~/pages/Tutorial';
+import DepartmentList from '~/pages/Department List';
 
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/following', component: Following },
+    { path: '/list-department', component: DepartmentList },
     { path: '/profile', component: Profile },
     { path: '/upload', component: Upload, layout: HeaderOnly },
     { path: '/tutorial', component: Tutorial, layout: HeaderOnly },
