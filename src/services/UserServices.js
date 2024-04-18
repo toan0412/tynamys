@@ -53,6 +53,26 @@ const getGoalApi = (applyType, standDate_gte, standDate_lt) => {
     });
 };
 
+const getDepartmentApi = () => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = `v1/departments`;
+    return axios.get(apiUrl, {
+        headers: {
+            'X-Company-Id': workspaceId,
+        },
+    });
+};
+
+const getDepartmentSearchApi = (search) => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = `v1/abilities?filter=%7B%22abilityUserStatus_in%22:[0,5]%7D&search=${search}&searchFields[]=user.fullName`;
+    return axios.get(apiUrl, {
+        headers: {
+            'X-Company-Id': workspaceId,
+        },
+    });
+};
+
 export {
     loginApi,
     patchAccountInfoApi,
@@ -63,4 +83,6 @@ export {
     setAllAsReadApi,
     getDayTaskApi,
     getGoalApi,
+    getDepartmentApi,
+    getDepartmentSearchApi,
 };

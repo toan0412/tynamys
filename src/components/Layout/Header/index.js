@@ -25,13 +25,10 @@ function Header() {
         <div className={cx('sticky')}>
             <header className={cx('wrapper')}>
                 <div className={cx('inner')}>
-                    <div
-                        className={cx('workspace')}
-                        onClick={() => {
-                            navigate('/');
-                        }}
-                    >
-                        <img className={cx('logo')} src={images.logo} alt="Tinamys logo" />
+                    <div className={cx('workspace')}>
+                        <Link to="/">
+                            <img className={cx('logo')} src={images.logo} alt="Tinamys logo" />
+                        </Link>
 
                         <WorkspaceDropDown />
 
