@@ -1,7 +1,7 @@
 import styles from './Sidebar.module.scss';
 import classNames from 'classnames/bind';
-import React, { useEffect, useState, useContext } from 'react';
 import { Menu, Divider } from 'antd';
+import React, { useEffect, useState, useContext } from 'react';
 import { UserContext } from '~/context/UserContext';
 
 import './Sidebar.scss';

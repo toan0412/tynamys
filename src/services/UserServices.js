@@ -63,9 +63,19 @@ const getDepartmentApi = () => {
     });
 };
 
-const getDepartmentSearchApi = (search) => {
+const getAbilityApi = (id) => {
     const workspaceId = localStorage.getItem('workspaceId');
-    const apiUrl = `v1/abilities?filter=%7B%22abilityUserStatus_in%22:[0,5]%7D&search=${search}&searchFields[]=user.fullName`;
+    const apiUrl = `v1/departments/${id}`;
+    return axios.get(apiUrl, {
+        headers: {
+            'X-Company-Id': workspaceId,
+        },
+    });
+};
+
+const getDepartmentSearchApi = (search, deptId) => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = `v1/abilities?filter=%7B%22abilityDepts.deptId_in%22:[${deptId}],%22abilityUserStatus_in%22:[0,5]%7D&search=${search}&searchFields[]=user.fullName`;
     return axios.get(apiUrl, {
         headers: {
             'X-Company-Id': workspaceId,
@@ -85,4 +95,5 @@ export {
     getGoalApi,
     getDepartmentApi,
     getDepartmentSearchApi,
+    getAbilityApi,
 };

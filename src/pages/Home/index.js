@@ -55,8 +55,8 @@ function Home() {
     };
 
     const dayMissionData = dayTaskData.map((task, index) => {
-        const { title, assignees, toDate } = task;
-        return { index: index + 1, title, assignees, toDate: moment(toDate).format('HH:mm') };
+        const { title, assignees, standDate } = task;
+        return { index: index + 1, title, assignees, standDate: moment(standDate).format('HH:mm') };
     });
 
     const personalTargetData = personalGoal.map((goal, index) => {

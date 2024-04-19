@@ -1,0 +1,20 @@
+.ant-transfer {
+    width: 578px;
+    .ant-transfer-list {
+        width: 280px;
+        height: 510px;
+        border: none;
+    }
+}
+
+.ant-transfer .ant-transfer-list-header-selected {
+    display: none;
+}
+
+.ant-transfer .ant-transfer-list-content-item > *:not(:last-child) {
+    display: none;
+}
+
+li:has(> .member-item[disabled]) {
+    background-color: black !important;
+}

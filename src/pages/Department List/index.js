@@ -20,12 +20,11 @@ function DepartmentList() {
         let res2 = await getDepartmentSearchApi(e.target.value);
         setMemberList(res2);
     };
-    console.log(memberList);
 
     useEffect(() => {
         const fetchData = async () => {
             let res = await getDepartmentApi();
-            let res2 = await getDepartmentSearchApi(searchValue);
+            let res2 = await getDepartmentSearchApi(searchValue, '');
             setDepartmentList(res.data);
             setMemberList(res2);
         };

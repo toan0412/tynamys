@@ -54,15 +54,7 @@ function WorkspaceModal({ isModalOpen, setIsModalOpen }) {
     };
 
     return (
-        <Modal
-            footer={null}
-            closeIcon=" "
-            open={isModalOpen}
-            onCancel={handleCancel}
-            width={796}
-            size="small"
-            // style={{ position: 'absolute', top: '0', left: '0', right: '0', bottom: '0', margin: 'auto' }}
-        >
+        <Modal footer={null} closeIcon=" " open={isModalOpen} onCancel={handleCancel} width={796} size="small">
             <Form
                 className={cx('card-modal-form')}
                 form={form}

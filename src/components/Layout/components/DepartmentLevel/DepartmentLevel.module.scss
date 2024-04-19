@@ -37,8 +37,7 @@
 .card-department {
     display: flex;
     padding: 8px;
-    min-width: 220px;
-    height: 120px;
+    height: 96px;
     align-items: center;
     margin-bottom: 12px;
     border-radius: 3px;
@@ -53,11 +52,11 @@
 
 .card-department-img {
     display: flex;
-    width: 100px;
+    width: 80px;
 
     img {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         margin: auto;
     }
 }
@@ -70,7 +69,7 @@
     h3 {
         color: #1d1d1d;
         font-weight: 400;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         line-height: 18px;
     }
 }
@@ -97,5 +96,17 @@
     position: absolute;
     opacity: 0.7;
     right: 4px;
-    bottom: 64px;
+    bottom: 54px;
+}
+
+.detail-btn {
+    margin: 4px 0;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    cursor: pointer;
+    // &:hover {
+    //     background-color: #f5f5f5;
+    // }
 }
