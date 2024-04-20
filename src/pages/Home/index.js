@@ -11,6 +11,7 @@ import { UserContext } from '~/context/UserContext';
 import moment from 'moment';
 
 const cx = classNames.bind(styles);
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -54,20 +55,38 @@ function Home() {
         return dayjs(`${year}-01-01`).toISOString();
     };
 
-    const dayMissionData = dayTaskData.map((task, index) => {
-        const { title, assignees, standDate } = task;
-        return { index: index + 1, title, assignees, standDate: moment(standDate).format('HH:mm') };
-    });
+    const dayMissionData = Array.isArray(dayTaskData)
+        ? dayTaskData.map((task, index) => {
+              const { title, assignees, standDate } = task;
+              return { index: index + 1, title, assignees, standDate: moment(standDate).format('HH:mm') };
+          })
+        : [];
 
-    const personalTargetData = personalGoal.map((goal, index) => {
-        const { title, assignees, standDate, progress } = goal;
-        return { index: index + 1, title, assignees, standDate: moment(standDate).format('DD/MM/YYYY'), progress };
-    });
+    const personalTargetData = Array.isArray(personalGoal)
+        ? personalGoal.map((goal, index) => {
+              const { title, assignees, standDate, progress } = goal;
+              return {
+                  index: index + 1,
+                  title,
+                  assignees,
+                  standDate: moment(standDate).format('DD/MM/YYYY'),
+                  progress,
+              };
+          })
+        : [];
 
-    const companyTargetData = companyGoal.map((goal, index) => {
-        const { title, assignees, standDate, progress } = goal;
-        return { index: index + 1, title, assignees, standDate: moment(standDate).format('DD/MM/YYYY'), progress };
-    });
+    const companyTargetData = Array.isArray(companyGoal)
+        ? companyGoal.map((goal, index) => {
+              const { title, assignees, standDate, progress } = goal;
+              return {
+                  index: index + 1,
+                  title,
+                  assignees,
+                  standDate: moment(standDate).format('DD/MM/YYYY'),
+                  progress,
+              };
+          })
+        : [];
 
     const handleChange = async (dateString) => {
         const convertedDateString = convertDateString(dateString);

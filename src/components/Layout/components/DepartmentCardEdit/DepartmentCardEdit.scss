@@ -18,3 +18,16 @@
 li:has(> .member-item[disabled]) {
     background-color: black !important;
 }
+
+//Upload
+.custom-upload {
+    margin-bottom: 12px;
+    .ant-upload-list-item-container {
+        width: 160px !important;
+        height: 160px !important;
+    }
+    .ant-upload-select {
+        width: 160px !important;
+        height: 160px !important;
+    }
+}

@@ -1,24 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './DepartmentCardEdit.module.scss';
-import { Button, Modal, Divider, Image, Input, Select, Checkbox, Transfer, Avatar } from 'antd';
+import { Button, Modal, Divider, Image, Input, Select, Checkbox, Transfer, Avatar, Upload } from 'antd';
+import { EditOutlined, UploadOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import './DepartmentCardEdit.scss';
+import ImageUploader from '../ImageUploader/ImageUploader';
 
 const cx = classNames.bind(styles);
+
+const getBase64 = (file) =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+    });
 
 function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abilities }) {
     const [mockData, setMockData] = useState([]);
     const [targetKeys, setTargetKeys] = useState([]);
+    const [isChange, setIsChange] = useState(false);
     const [departmentCard, setDepartmentCard] = useState({
         photoFile: '',
         displayName: '',
         description: '',
         type: '',
-        isPrivate: false,
+        isPrivate: '',
     });
 
+    //Upload image
+    const [fileList, setFileList] = useState([]);
+    const handleUpload = (files) => {
+        setFileList(files); // Update fileList state
+    };
+
+    //
+
     useEffect(() => {
+        setFileList(
+            departmentCardEdit.photoUrl
+                ? [{ uid: '-1', name: 'image.png', status: 'done', url: departmentCardEdit.photoUrl }]
+                : [],
+        );
+
+        setDepartmentCard({
+            displayName: departmentCardEdit.displayName,
+            description: departmentCardEdit.description,
+            type: departmentCardEdit.type,
+            isPrivate: departmentCardEdit.isPrivate,
+        });
         getMock();
     }, [modalEdit]);
 
@@ -53,6 +84,10 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
 
     const filterOption = (inputValue, option) => option.fullName.toLowerCase().indexOf(inputValue) > -1;
 
+    const handleEdit = () => {
+        console.log('xxx');
+    };
+
     return (
         <Modal open={modalEdit} footer={null} onCancel={handleCancel} width={976}>
             <header className={cx('modal-header')}>
@@ -62,20 +97,21 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                     <div className={cx('content-left')}>
                         <div className={cx('department-avatar')}>
                             <div className={cx('border-avatar')}>
-                                <Image src={departmentCardEdit.photoUrl} alt="department-avatar" width={142} />
+                                <ImageUploader fileList={fileList} onUpload={handleUpload} />
                             </div>
                         </div>
-                        <div className={cx('form-item-custom')}>
+                        <div className={cx('form-item-custom')} style={{ paddingTop: '16px' }}>
                             <div className={cx('title')}>Tên nhóm</div>
                             <Input
-                                value={departmentCardEdit.displayName}
+                                value={departmentCard.displayName}
                                 size="large"
-                                onChange={(e) =>
+                                onChange={(e) => {
                                     setDepartmentCard((prevState) => ({
                                         ...prevState,
                                         displayName: e.target.value,
-                                    }))
-                                }
+                                    }));
+                                    setIsChange(true);
+                                }}
                             />
                         </div>
                         <div className={cx('form-item-custom')}>
@@ -85,8 +121,15 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                         <div className={cx('form-item-custom')}>
                             <div className={cx('title')}>Mô tả</div>
                             <TextArea
-                                value={departmentCardEdit.description ? departmentCardEdit.description : 'Mô tả'}
+                                value={departmentCard.description ? departmentCard.description : 'Mô tả'}
                                 size="large"
+                                onChange={(e) => {
+                                    setDepartmentCard((prevState) => ({
+                                        ...prevState,
+                                        description: e.target.value,
+                                    }));
+                                    setIsChange(true);
+                                }}
                                 autoSize={{
                                     minRows: 5,
                                     maxRows: 7,
@@ -94,13 +137,35 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                             />
                         </div>
                         <div className={cx('form-item-custom')}>
-                            <Checkbox checked={departmentCardEdit.isPrivate}>Phòng bí mật</Checkbox>
+                            <Checkbox
+                                checked={departmentCard.isPrivate}
+                                onChange={() => {
+                                    setDepartmentCard((prevState) => ({
+                                        ...prevState,
+                                        isPrivate: !departmentCard.isPrivate,
+                                    }));
+                                    setIsChange(true);
+                                }}
+                            >
+                                Phòng bí mật
+                            </Checkbox>
                         </div>
-                        <Button type="primary" danger size="large" style={{ marginTop: '24px' }}>
-                            {/* <EditOutlined />
-                            Chỉnh sửa */}
-                            Đóng
-                        </Button>
+
+                        {isChange ? (
+                            <Button
+                                type="primary"
+                                size="large"
+                                style={{ marginTop: '24px' }}
+                                onClick={() => handleEdit()}
+                            >
+                                <EditOutlined />
+                                Chỉnh sửa
+                            </Button>
+                        ) : (
+                            <Button type="primary" danger size="large" style={{ marginTop: '24px' }}>
+                                Đóng
+                            </Button>
+                        )}
                     </div>
                     <div className={cx('content-right')}>
                         <Transfer

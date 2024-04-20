@@ -77,25 +77,29 @@ function NotificationDropDown({ children }) {
     const renderItem = (notificationList) => {
         return (
             <div className={cx('notification-list')}>
-                {notificationList.map((notification) => (
-                    <div className={cx('notification-item')} key={notification.id}>
-                        {notification.isRead === false && <div className={cx('not-read')}></div>}
-                        <img
-                            className={cx('notification-avatar')}
-                            src={
-                                notification.notifyDetail.imageUrl ||
-                                'https://mys.tinasoft.com.vn/_next/image?url=https%3A%2F%2Fencrypted-tbn0.gstatic.com%2Fimages%3Fq%3Dtbn%3AANd9GcQ1LC2DYX9e9yQ_sSrRhM9M-UNQN23TZQHiSA%26usqp%3DCAU&w=32&q=75'
-                            }
-                            alt="notification avatar"
-                            loading="lazy"
-                        />
-                        <div className={cx('notification-body-wrap')}>
-                            <h4 className={cx('notification-item-title')}>{notification.notifyDetail.i18nTitle}</h4>
-                            <div>{notification.notifyDetail.i18nBody.replace(/<\/?[^>]+(>|$)/g, '')}</div>
-                            <p>{formatTimeDifference(notification.notifyDetail.createdAt)} trước</p>
-                        </div>
-                    </div>
-                ))}
+                {notificationList && Array.isArray(notificationList)
+                    ? notificationList.map((notification) => (
+                          <div className={cx('notification-item')} key={notification.id}>
+                              {notification.isRead === false && <div className={cx('not-read')}></div>}
+                              <img
+                                  className={cx('notification-avatar')}
+                                  src={
+                                      notification.notifyDetail.imageUrl ||
+                                      'https://mys.tinasoft.com.vn/_next/image?url=https%3A%2F%2Fencrypted-tbn0.gstatic.com%2Fimages%3Fq%3Dtbn%3AANd9GcQ1LC2DYX9e9yQ_sSrRhM9M-UNQN23TZQHiSA%26usqp%3DCAU&w=32&q=75'
+                                  }
+                                  alt="notification avatar"
+                                  loading="lazy"
+                              />
+                              <div className={cx('notification-body-wrap')}>
+                                  <h4 className={cx('notification-item-title')}>
+                                      {notification.notifyDetail.i18nTitle}
+                                  </h4>
+                                  <div>{notification.notifyDetail.i18nBody.replace(/<\/?[^>]+(>|$)/g, '')}</div>
+                                  <p>{formatTimeDifference(notification.notifyDetail.createdAt)} trước</p>
+                              </div>
+                          </div>
+                      ))
+                    : []}
             </div>
         );
     };
