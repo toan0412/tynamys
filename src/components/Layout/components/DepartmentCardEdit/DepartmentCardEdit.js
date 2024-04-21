@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from './DepartmentCardEdit.module.scss';
 import { Button, Modal, Divider, Image, Input, Select, Checkbox, Transfer, Avatar, Upload } from 'antd';
@@ -6,6 +6,8 @@ import { EditOutlined, UploadOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import './DepartmentCardEdit.scss';
 import ImageUploader from '../ImageUploader/ImageUploader';
+import { patchDepartmentApi } from '~/services/UserServices';
+import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles);
 
@@ -17,12 +19,12 @@ const getBase64 = (file) =>
         reader.onerror = (error) => reject(error);
     });
 
-function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abilities }) {
+function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abilities, departmentCardId }) {
+    const { isDepartmentUpdate } = useContext(UserContext);
     const [mockData, setMockData] = useState([]);
     const [targetKeys, setTargetKeys] = useState([]);
     const [isChange, setIsChange] = useState(false);
     const [departmentCard, setDepartmentCard] = useState({
-        photoFile: '',
         displayName: '',
         description: '',
         type: '',
@@ -32,10 +34,8 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
     //Upload image
     const [fileList, setFileList] = useState([]);
     const handleUpload = (files) => {
-        setFileList(files); // Update fileList state
+        setFileList(files);
     };
-
-    //
 
     useEffect(() => {
         setFileList(
@@ -84,8 +84,22 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
 
     const filterOption = (inputValue, option) => option.fullName.toLowerCase().indexOf(inputValue) > -1;
 
-    const handleEdit = () => {
-        console.log('xxx');
+    //Handle submit
+    const HandleEditDepartmentCard = async () => {
+        try {
+            let res = await patchDepartmentApi(
+                departmentCardId,
+                departmentCard.displayName,
+                departmentCard.description,
+                departmentCard.isPrivate,
+            );
+            if (res.success) {
+                handleCancel();
+                isDepartmentUpdate(true);
+            }
+        } catch (error) {
+            console.error('Error editing department:', error);
+        }
     };
 
     return (
@@ -103,6 +117,7 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                         <div className={cx('form-item-custom')} style={{ paddingTop: '16px' }}>
                             <div className={cx('title')}>Tên nhóm</div>
                             <Input
+                                placeholder="Tên nhóm"
                                 value={departmentCard.displayName}
                                 size="large"
                                 onChange={(e) => {
@@ -121,7 +136,8 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                         <div className={cx('form-item-custom')}>
                             <div className={cx('title')}>Mô tả</div>
                             <TextArea
-                                value={departmentCard.description ? departmentCard.description : 'Mô tả'}
+                                placeholder="Mô tả"
+                                value={departmentCard.description}
                                 size="large"
                                 onChange={(e) => {
                                     setDepartmentCard((prevState) => ({
@@ -156,13 +172,19 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                                 type="primary"
                                 size="large"
                                 style={{ marginTop: '24px' }}
-                                onClick={() => handleEdit()}
+                                onClick={() => HandleEditDepartmentCard()}
                             >
                                 <EditOutlined />
                                 Chỉnh sửa
                             </Button>
                         ) : (
-                            <Button type="primary" danger size="large" style={{ marginTop: '24px' }}>
+                            <Button
+                                type="primary"
+                                danger
+                                size="large"
+                                style={{ marginTop: '24px' }}
+                                onClick={handleCancel}
+                            >
                                 Đóng
                             </Button>
                         )}

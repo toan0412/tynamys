@@ -1,9 +1,21 @@
 import React from 'react';
 
-const UserContext = React.createContext({ auth: false, userInfo: {}, companiesLIst: [], companyInfo: {} });
+const UserContext = React.createContext({
+    auth: false,
+    userInfo: {},
+    companiesLIst: [],
+    companyInfo: {},
+    departmentUpdate: false,
+});
 
 const UserProvider = ({ children }) => {
-    const [user, setUser] = React.useState({ auth: false, userInfo: {}, companiesList: [], companyInfo: {} });
+    const [user, setUser] = React.useState({
+        auth: false,
+        userInfo: {},
+        companiesList: [],
+        companyInfo: {},
+        departmentUpdate: false,
+    });
 
     const loginContext = (token, workspaceId, userInfo, companiesList, companyInfo = {}) => {
         setUser((user) => ({
@@ -28,6 +40,13 @@ const UserProvider = ({ children }) => {
         localStorage.setItem('companySelect', JSON.stringify(companyInfo));
     };
 
+    const isDepartmentUpdate = (departmentUpdate) => {
+        setUser((user) => ({
+            ...user,
+            departmentUpdate,
+        }));
+    };
+
     const logout = () => {
         localStorage.clear();
         setUser((user) => ({
@@ -36,7 +55,7 @@ const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, loginContext, logout, getWorkspaceContext }}>
+        <UserContext.Provider value={{ user, loginContext, logout, getWorkspaceContext, isDepartmentUpdate }}>
             {children}
         </UserContext.Provider>
     );

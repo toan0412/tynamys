@@ -62,11 +62,15 @@ function DepartmentList() {
                             <div className={cx('member-list-content')}>
                                 {memberList.data && Array.isArray(memberList.data)
                                     ? memberList.data.map((member) => (
-                                          <div className={cx('member-item')}>
+                                          <div className={cx('member-item')} key={member.id}>
                                               <div className={cx('member-item-avatar')}>
-                                                  <Avatar src={member.user.avatarUrl} size={45}></Avatar>
+                                                  {member.user && member.user.avatarUrl && (
+                                                      <Avatar src={member.user.avatarUrl} size={45} />
+                                                  )}
                                               </div>
-                                              <p className={cx('member-item-body')}>{member.user.fullName}</p>
+                                              <p className={cx('member-item-body')}>
+                                                  {member.user && member.user.fullName}
+                                              </p>
                                           </div>
                                       ))
                                     : []}

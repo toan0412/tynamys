@@ -12,11 +12,13 @@ const cx = classNames.bind(styles);
 const DepartmentLevel = ({ title, type, departmentList }) => {
     const [departmentCardDetail, setDepartmentCardDetail] = useState({});
     const [departmentCardEdit, setDepartmentCardEdit] = useState({});
+    const [departmentCardId, setDepartmentCardId] = useState('');
     const [abilities, setAbilities] = useState({});
     const [modalDetail, setModalDetail] = useState(false);
     const [modalEdit, setModalEdit] = useState(false);
 
     const showViewModal = async (id) => {
+        setDepartmentCardId(id);
         let res = await getAbilityApi(id);
         let res2 = await getDepartmentSearchApi('', id);
         setDepartmentCardDetail(res.data);
@@ -25,10 +27,21 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
     };
 
     const showEditModal = async (id) => {
+        setDepartmentCardId(id);
         let res = await getAbilityApi(id);
         let res2 = await getDepartmentSearchApi('', '');
         setDepartmentCardEdit(res.data);
         setAbilities(res2);
+        setModalEdit(true);
+    };
+
+    const showEditModalWithId = async () => {
+        setDepartmentCardId(departmentCardId);
+        let res = await getAbilityApi(departmentCardId);
+        let res2 = await getDepartmentSearchApi('', '');
+        setDepartmentCardEdit(res.data);
+        setAbilities(res2);
+        setModalDetail(false);
         setModalEdit(true);
     };
 
@@ -65,9 +78,9 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
                                                                       label: (
                                                                           <button
                                                                               className={cx('detail-btn')}
-                                                                              onClick={() =>
-                                                                                  showViewModal(department.id)
-                                                                              }
+                                                                              onClick={() => {
+                                                                                  showViewModal(department.id);
+                                                                              }}
                                                                           >
                                                                               Xem chi tiết
                                                                           </button>
@@ -78,9 +91,9 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
                                                                       label: (
                                                                           <button
                                                                               className={cx('detail-btn')}
-                                                                              onClick={() =>
-                                                                                  showEditModal(department.id)
-                                                                              }
+                                                                              onClick={() => {
+                                                                                  showEditModal(department.id);
+                                                                              }}
                                                                           >
                                                                               Sửa nhóm
                                                                           </button>
@@ -115,12 +128,14 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
                                                   handleCancel={handleDetailCancel}
                                                   departmentCardDetail={departmentCardDetail}
                                                   abilities={abilities}
+                                                  modalEdit={() => showEditModalWithId()}
                                               />
                                               <DepartmentCardEdit
                                                   modalEdit={modalEdit}
                                                   handleCancel={handleEditCancel}
                                                   departmentCardEdit={departmentCardEdit}
                                                   abilities={abilities}
+                                                  departmentCardId={departmentCardId}
                                               />
                                           </>
                                       ),

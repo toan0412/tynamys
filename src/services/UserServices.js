@@ -63,6 +63,20 @@ const getDepartmentApi = () => {
     });
 };
 
+const patchDepartmentApi = (id, displayName, description, isPrivate) => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = `v1/departments/${id}`;
+    return axios.patch(
+        apiUrl,
+        { displayName, description, isPrivate },
+        {
+            headers: {
+                'X-Company-Id': workspaceId,
+            },
+        },
+    );
+};
+
 const getAbilityApi = (id) => {
     const workspaceId = localStorage.getItem('workspaceId');
     const apiUrl = `v1/departments/${id}`;
@@ -96,4 +110,5 @@ export {
     getDepartmentApi,
     getDepartmentSearchApi,
     getAbilityApi,
+    patchDepartmentApi,
 };

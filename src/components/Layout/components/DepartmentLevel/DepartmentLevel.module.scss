@@ -37,7 +37,7 @@
 .card-department {
     display: flex;
     padding: 8px;
-    height: 96px;
+    height: 120px;
     align-items: center;
     margin-bottom: 12px;
     border-radius: 3px;
@@ -52,11 +52,11 @@
 
 .card-department-img {
     display: flex;
-    width: 80px;
+    width: 100px;
 
     img {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         margin: auto;
     }
 }
@@ -69,13 +69,13 @@
     h3 {
         color: #1d1d1d;
         font-weight: 400;
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         line-height: 18px;
     }
 }
 
 .desc {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-top: -16px;
     color: #575757;
     font-weight: 300;

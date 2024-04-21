@@ -7,7 +7,7 @@ import TextArea from 'antd/es/input/TextArea';
 
 const cx = classNames.bind(styles);
 
-function DepartmentCardDetail({ modalDetail, handleCancel, departmentCardDetail, abilities }) {
+function DepartmentCardDetail({ modalDetail, handleCancel, departmentCardDetail, abilities, modalEdit }) {
     return (
         <Modal open={modalDetail} footer={null} onCancel={handleCancel} width={718}>
             <header className={cx('modal-header')}>
@@ -43,7 +43,7 @@ function DepartmentCardDetail({ modalDetail, handleCancel, departmentCardDetail,
                         <div className={cx('form-item-custom')}>
                             <Checkbox checked={departmentCardDetail.isPrivate}>Phòng bí mật</Checkbox>
                         </div>
-                        <Button type="primary" size="large" style={{ marginTop: '24px' }}>
+                        <Button type="primary" size="large" style={{ marginTop: '24px' }} onClick={modalEdit}>
                             <EditOutlined />
                             Chỉnh sửa
                         </Button>
