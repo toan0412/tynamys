@@ -72,20 +72,24 @@ function Sidebar() {
                                         Danh sách nhóm
                                     </Menu.Item>
                                 </Link>
-                                <Menu.Item
-                                    key="positionList"
-                                    className={cx('sidebar-item')}
-                                    icon={<PositionListIcon />}
-                                >
-                                    Danh sách chức vụ
-                                </Menu.Item>
-                                <Menu.Item
-                                    key="personnelList"
-                                    className={cx('sidebar-item')}
-                                    icon={<PersonnelListIcon />}
-                                >
-                                    Danh sách nhân sự
-                                </Menu.Item>
+                                <Link to="/list-position">
+                                    <Menu.Item
+                                        key="positionList"
+                                        className={cx('sidebar-item')}
+                                        icon={<PositionListIcon />}
+                                    >
+                                        Danh sách chức vụ
+                                    </Menu.Item>
+                                </Link>
+                                <Link to="/list-personnel">
+                                    <Menu.Item
+                                        key="personnelList"
+                                        className={cx('sidebar-item')}
+                                        icon={<PersonnelListIcon />}
+                                    >
+                                        Danh sách nhân sự
+                                    </Menu.Item>
+                                </Link>
                                 <Menu.Item key="news" className={cx('sidebar-item')} icon={<NewsIcon />}>
                                     Tin tức
                                 </Menu.Item>

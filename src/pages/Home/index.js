@@ -5,10 +5,10 @@ import { Avatar, DatePicker, Table, Progress } from 'antd';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import './Home.scss';
 import { getDayTaskApi, getGoalApi } from '~/services/UserServices';
 import { UserContext } from '~/context/UserContext';
 import moment from 'moment';
+import './Home.scss';
 
 const cx = classNames.bind(styles);
 
@@ -223,19 +223,19 @@ function Home() {
                     <div className={cx('title')}>Nhiệm vụ ngày</div>
                     <DatePicker defaultValue={currentTime} format={dateFormat} onChange={handleChange} />
                 </div>
-                <Table dataSource={dayMissionData} columns={dayMissionColumns} />
+                <Table className={cx('home-table')} dataSource={dayMissionData} columns={dayMissionColumns} />
             </div>
             <div className={cx('table-target-company')}>
                 <div className={cx('title-wrapper')}>
                     <div className={cx('title')}>Mục tiêu công ty</div>
                 </div>
-                <Table dataSource={companyTargetData} columns={companyTargetColumns} />
+                <Table className={cx('home-table')} dataSource={companyTargetData} columns={companyTargetColumns} />
             </div>
             <div className={cx('table-target-company')}>
                 <div className={cx('title-wrapper')}>
                     <div className={cx('title')}>Mục tiêu công ty</div>
                 </div>
-                <Table dataSource={personalTargetData} columns={personalTargetColumns} />
+                <Table className={cx('home-table')} dataSource={personalTargetData} columns={personalTargetColumns} />
             </div>
         </div>
     );

@@ -110,6 +110,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
                                                                   },
                                                               ],
                                                           }}
+                                                          placement="bottomRight"
                                                       >
                                                           <div>
                                                               <a onClick={(e) => e.preventDefault()}>

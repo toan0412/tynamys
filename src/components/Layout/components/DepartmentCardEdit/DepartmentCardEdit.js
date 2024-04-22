@@ -6,7 +6,7 @@ import { EditOutlined, UploadOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import './DepartmentCardEdit.scss';
 import ImageUploader from '../ImageUploader/ImageUploader';
-import { patchDepartmentApi } from '~/services/UserServices';
+import { patchDepartmentAbility, patchDepartmentApi } from '~/services/UserServices';
 import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles);
@@ -33,9 +33,12 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
 
     //Upload image
     const [fileList, setFileList] = useState([]);
+
     const handleUpload = (files) => {
         setFileList(files);
     };
+
+    //
 
     useEffect(() => {
         setFileList(
@@ -59,15 +62,16 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
         if (abilities.data && Array.isArray(abilities.data)) {
             abilities.data.forEach((ability) => {
                 const data = {
-                    key: ability.id,
+                    key: ability.userId,
                     fullName: ability.user.fullName,
                     avatar: ability.user.avatarUrl,
-                    chosen: ability.abilityDepts.length === 0,
+                    chosen: ability.abilityDepts.length !== 0,
                     companyAbility: ability.companyAbility,
                 };
 
                 if (data.chosen) {
                     tempTargetKeys.push(data.key);
+                    setIsChange(true);
                 }
 
                 tempMockData.push(data);
@@ -93,7 +97,9 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                 departmentCard.description,
                 departmentCard.isPrivate,
             );
-            if (res.success) {
+
+            let res2 = await patchDepartmentAbility(departmentCardId, targetKeys);
+            if (res.success || res2.success) {
                 handleCancel();
                 isDepartmentUpdate(true);
             }
@@ -193,8 +199,8 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                         <Transfer
                             dataSource={mockData}
                             titles={[
-                                <div className={cx('transfer-title')}>Nhân sự thuộc nhóm</div>,
                                 <div className={cx('transfer-title')}>Nhân sự thuộc công ty</div>,
+                                <div className={cx('transfer-title')}>Nhân sự thuộc nhóm</div>,
                             ]}
                             showSelectAll={false}
                             showSearch
@@ -203,7 +209,7 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                             onChange={handleChange}
                             filterOption={filterOption}
                             render={(item) => (
-                                <div className={cx('member-item')} disabled={item.companyAbility === 'COMP_OWN'}>
+                                <div className={cx('member-item')} disabled={item.key === 1}>
                                     <div className={cx('member-item-avatar')}>
                                         <Avatar src={item.avatar} size={42}></Avatar>
                                     </div>

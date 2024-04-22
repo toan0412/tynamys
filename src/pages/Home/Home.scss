@@ -3,7 +3,7 @@
     border-spacing: 0;
     border-radius: 10px !important;
     border: 1px solid var(--ds-border) !important;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .ant-table-content {
@@ -33,9 +33,11 @@
     text-align: center !important;
 }
 
-.ant-table-thead > tr > th {
-    background-color: #e9edf3 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+.home-table {
+    th {
+        background-color: #e9edf3 !important;
+        height: 40px;
+    }
     &:first-child {
         position: sticky !important;
         left: 0px;

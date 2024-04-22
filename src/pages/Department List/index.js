@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './DepartmentList.module.scss';
 import { Avatar, Input } from 'antd';
 import { getDepartmentSearchApi, getDepartmentApi } from '~/services/UserServices';
-import { UserContext } from '~/context/UserContext';
 import DepartmentLevel from '~/components/Layout/components/DepartmentLevel/DepartmentLevel';
+import useDebounce from '~/hooks/useDebounce';
 
 const { Search } = Input;
 const cx = classNames.bind(styles);
@@ -13,23 +13,17 @@ function DepartmentList() {
     const [searchValue, setSearchValue] = useState('');
     const [memberList, setMemberList] = useState([]);
     const [departmentList, setDepartmentList] = useState([]);
-    const { user } = useContext(UserContext);
-
-    const onHandleChange = async (e) => {
-        setSearchValue(e.target.value);
-        let res2 = await getDepartmentSearchApi(e.target.value);
-        setMemberList(res2);
-    };
+    const debouncedValue = useDebounce(searchValue, 500);
 
     useEffect(() => {
         const fetchData = async () => {
             let res = await getDepartmentApi();
-            let res2 = await getDepartmentSearchApi(searchValue, '');
+            let res2 = await getDepartmentSearchApi(debouncedValue, '');
             setDepartmentList(res.data);
             setMemberList(res2);
         };
         fetchData().catch(console.error);
-    }, [user, searchValue]);
+    }, [debouncedValue]);
 
     return (
         <div className={cx('department-manager')}>
@@ -56,7 +50,7 @@ function DepartmentList() {
                                     placeholder="Tìm kiếm"
                                     value={searchValue}
                                     allowClear
-                                    onChange={onHandleChange}
+                                    onChange={(e) => setSearchValue(e.target.value)}
                                 />
                             </div>
                             <div className={cx('member-list-content')}>
