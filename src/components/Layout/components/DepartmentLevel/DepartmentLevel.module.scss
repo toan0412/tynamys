@@ -25,14 +25,7 @@
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-        width: 4px;
         display: none;
-    }
-}
-
-.list-column:hover {
-    &::-webkit-scrollbar {
-        display: block;
     }
 }
 

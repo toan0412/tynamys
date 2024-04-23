@@ -111,6 +111,30 @@ const patchDepartmentAbility = (deptId, userIds) => {
     );
 };
 
+const postDepartment = (type, displayName, description, numberOfMember, isPrivate) => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = 'v1/departments';
+    return axios.post(
+        apiUrl,
+        { type, displayName, description, numberOfMember, isPrivate },
+        {
+            headers: {
+                'X-Company-Id': workspaceId,
+            },
+        },
+    );
+};
+
+const deleteDepartment = (id, isForce) => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = `v1/departments/${id}`;
+    const payload = { isForce };
+    const headers = {
+        'X-Company-Id': workspaceId,
+    };
+    return axios.delete(apiUrl, { data: payload, headers: headers });
+};
+
 export {
     loginApi,
     patchAccountInfoApi,
@@ -126,4 +150,6 @@ export {
     getAbilityApi,
     patchDepartmentApi,
     patchDepartmentAbility,
+    postDepartment,
+    deleteDepartment,
 };

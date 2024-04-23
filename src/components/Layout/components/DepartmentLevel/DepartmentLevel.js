@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from './DepartmentLevel.module.scss';
+import { UserContext } from '~/context/UserContext';
 import { Button, Dropdown, Space } from 'antd';
 import { PlusOutlined, LockOutlined } from '@ant-design/icons';
 import DepartmentCardDetail from '../DepartmentCardDetail/DepartmentCardDetail';
-import { getAbilityApi, getDepartmentSearchApi } from '~/services/UserServices';
+import { deleteDepartment, getAbilityApi, getDepartmentSearchApi } from '~/services/UserServices';
 import DepartmentCardEdit from '../DepartmentCardEdit/DepartmentCardEdit';
+import DepartmentCardCreate from '../DepartmentCardCreate/DepartmentCardCreate';
+import DeleteModal from '../DeleteModal/DeleteModal';
 
 const cx = classNames.bind(styles);
 
 const DepartmentLevel = ({ title, type, departmentList }) => {
+    const { isDepartmentUpdate } = useContext(UserContext);
     const [departmentCardDetail, setDepartmentCardDetail] = useState({});
     const [departmentCardEdit, setDepartmentCardEdit] = useState({});
     const [departmentCardId, setDepartmentCardId] = useState('');
     const [abilities, setAbilities] = useState({});
     const [modalDetail, setModalDetail] = useState(false);
     const [modalEdit, setModalEdit] = useState(false);
+    const [modalCreate, setModalCreate] = useState(false);
+    const [modalDelete, setModalDelete] = useState(false);
+    const [modalForce, setModalForce] = useState(false);
+    const [isDanger, setIsDanger] = useState('');
 
     const showViewModal = async (id) => {
         setDepartmentCardId(id);
@@ -45,12 +53,56 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
         setModalEdit(true);
     };
 
+    const showCreateModal = async () => {
+        let res = await getDepartmentSearchApi('', '');
+        setAbilities(res.data);
+        setModalCreate(true);
+    };
+
+    const showDeleteModal = async (id) => {
+        setDepartmentCardId(id);
+        setModalDelete(true);
+    };
+
+    const handleDelete = async () => {
+        let res = await deleteDepartment(departmentCardId, false);
+        if (res.errorCode.length === 0) {
+            setModalDelete(false);
+        } else {
+            if (res.errorCode === 'DEPT.ITEM_IN_USED') {
+                setIsDanger('Nhóm hiện đang được sử dụng');
+                setModalDelete(false);
+                setModalForce(true);
+            }
+        }
+    };
+
+    const handleForce = async () => {
+        let res = await deleteDepartment(departmentCardId, true);
+        if (res.success) {
+            setModalForce(false);
+            isDepartmentUpdate(true);
+        }
+    };
+
+    const handleCreateCancel = () => {
+        setModalCreate(false);
+    };
+
     const handleDetailCancel = () => {
         setModalDetail(false);
     };
 
     const handleEditCancel = () => {
         setModalEdit(false);
+    };
+
+    const handleDeleteCancel = () => {
+        setModalDelete(false);
+    };
+
+    const handleForceCancel = () => {
+        setModalForce(false);
     };
 
     return (
@@ -102,7 +154,12 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
                                                                   },
                                                                   {
                                                                       label: (
-                                                                          <button className={cx('detail-btn')}>
+                                                                          <button
+                                                                              className={cx('detail-btn')}
+                                                                              onClick={() => {
+                                                                                  showDeleteModal(department.id);
+                                                                              }}
+                                                                          >
                                                                               Xoá nhóm
                                                                           </button>
                                                                       ),
@@ -138,6 +195,26 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
                                                   abilities={abilities}
                                                   departmentCardId={departmentCardId}
                                               />
+                                              <DepartmentCardCreate
+                                                  modalCreate={modalCreate}
+                                                  abilities={abilities}
+                                                  type={type}
+                                                  handleCancel={handleCreateCancel}
+                                              />
+                                              <DeleteModal
+                                                  modalDelete={modalDelete}
+                                                  handleCancel={handleDeleteCancel}
+                                                  titleModal=""
+                                                  content="Bạn đồng ý xóa Nhóm này không?"
+                                                  handleDelete={handleDelete}
+                                              />
+                                              <DeleteModal
+                                                  modalDelete={modalForce}
+                                                  handleCancel={handleForceCancel}
+                                                  titleModal={isDanger}
+                                                  content="Vẫn xoá?"
+                                                  handleDelete={handleForce}
+                                              />
                                           </>
                                       ),
                               )
@@ -145,7 +222,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
                     </div>
                 </div>
                 <div className={cx('btn-add-dept')}>
-                    <Button type="primary" ghost>
+                    <Button type="primary" ghost onClick={() => showCreateModal()}>
                         <PlusOutlined />
                         <span>Thêm nhóm</span>
                     </Button>

@@ -1,17 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
 import classNames from 'classnames/bind';
-import styles from './DepartmentCardEdit.module.scss';
+import styles from './DepartmentCardCreate.module.scss';
 import { Button, Modal, Divider, Input, Select, Checkbox, Transfer, Avatar } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
-import './DepartmentCardEdit.scss';
+import './DepartmentCardCreate.scss';
 import ImageUploader from '../ImageUploader/ImageUploader';
-import { patchDepartmentAbility, patchDepartmentApi } from '~/services/UserServices';
+import { patchDepartmentAbility, patchDepartmentApi, postDepartment } from '~/services/UserServices';
 import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles);
 
-function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abilities, departmentCardId }) {
+function DepartmentCardCreate({ modalCreate, abilities, type, handleCancel }) {
     const { isDepartmentUpdate } = useContext(UserContext);
     const [mockData, setMockData] = useState([]);
     const [targetKeys, setTargetKeys] = useState([]);
@@ -33,20 +32,8 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
     //
 
     useEffect(() => {
-        setFileList(
-            departmentCardEdit.photoUrl
-                ? [{ uid: '-1', name: 'image.png', status: 'done', url: departmentCardEdit.photoUrl }]
-                : [],
-        );
-
-        setDepartmentCard({
-            displayName: departmentCardEdit.displayName,
-            description: departmentCardEdit.description,
-            type: departmentCardEdit.type,
-            isPrivate: departmentCardEdit.isPrivate,
-        });
         getMock();
-    }, [modalEdit]);
+    }, [modalCreate]);
 
     const getMock = () => {
         const tempTargetKeys = [];
@@ -57,7 +44,7 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                     key: ability.userId,
                     fullName: ability.user.fullName,
                     avatar: ability.user.avatarUrl,
-                    chosen: ability.abilityDepts.find((obj) => obj.deptId === departmentCardId),
+                    chosen: null,
                     companyAbility: ability.companyAbility,
                 };
 
@@ -74,6 +61,8 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
         setTargetKeys(tempTargetKeys);
     };
 
+    const numberOfUser = targetKeys.length;
+
     const handleChange = (newTargetKeys) => {
         setTargetKeys(newTargetKeys);
     };
@@ -81,17 +70,23 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
     const filterOption = (inputValue, option) => option.fullName.toLowerCase().indexOf(inputValue) > -1;
 
     //Handle submit
-    const HandleEditDepartmentCard = async () => {
+    const HandleCreateDepartmentCard = async () => {
+        console.log(numberOfUser);
+        let departmentCardId;
         try {
-            let res = await patchDepartmentApi(
-                departmentCardId,
+            let res = await postDepartment(
+                type,
                 departmentCard.displayName,
                 departmentCard.description,
+                numberOfUser,
                 departmentCard.isPrivate,
             );
+            if (res.success) {
+                departmentCardId = res.data.id;
+            }
 
             let res2 = await patchDepartmentAbility(departmentCardId, targetKeys);
-            if (res.success || res2.success) {
+            if (res2.success) {
                 handleCancel();
                 isDepartmentUpdate(true);
             }
@@ -101,9 +96,9 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
     };
 
     return (
-        <Modal open={modalEdit} footer={null} onCancel={handleCancel} width={976}>
+        <Modal open={modalCreate} footer={null} onCancel={handleCancel} width={976}>
             <header className={cx('modal-header')}>
-                <h3>Chi tiết nhóm</h3>
+                <h3>Thêm nhóm</h3>
                 <Divider style={{ margin: '12px 0' }} />
                 <div className={cx('modal-content')}>
                     <div className={cx('content-left')}>
@@ -170,10 +165,9 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
                                 type="primary"
                                 size="large"
                                 style={{ marginTop: '24px' }}
-                                onClick={() => HandleEditDepartmentCard()}
+                                onClick={() => HandleCreateDepartmentCard()}
                             >
-                                <EditOutlined />
-                                Chỉnh sửa
+                                Thêm nhóm
                             </Button>
                         ) : (
                             <Button
@@ -216,4 +210,4 @@ function DepartmentCardEdit({ modalEdit, handleCancel, departmentCardEdit, abili
     );
 }
 
-export default DepartmentCardEdit;
+export default DepartmentCardCreate;

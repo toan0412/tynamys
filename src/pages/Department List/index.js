@@ -5,11 +5,13 @@ import { Avatar, Input } from 'antd';
 import { getDepartmentSearchApi, getDepartmentApi } from '~/services/UserServices';
 import DepartmentLevel from '~/components/Layout/components/DepartmentLevel/DepartmentLevel';
 import useDebounce from '~/hooks/useDebounce';
+import { UserContext } from '~/context/UserContext';
 
 const { Search } = Input;
 const cx = classNames.bind(styles);
 
 function DepartmentList() {
+    const { user } = useContext(UserContext);
     const [searchValue, setSearchValue] = useState('');
     const [memberList, setMemberList] = useState([]);
     const [departmentList, setDepartmentList] = useState([]);
@@ -23,7 +25,7 @@ function DepartmentList() {
             setMemberList(res2);
         };
         fetchData().catch(console.error);
-    }, [debouncedValue]);
+    }, [user, debouncedValue]);
 
     return (
         <div className={cx('department-manager')}>
