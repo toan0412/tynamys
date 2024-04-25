@@ -55,7 +55,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
 
     const showCreateModal = async () => {
         let res = await getAbilitiesByDepartmentApi('', '');
-        setAbilities(res.data);
+        setAbilities(res);
         setModalCreate(true);
     };
 

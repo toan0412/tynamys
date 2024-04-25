@@ -33,21 +33,6 @@ function Sidebar() {
         setCompanySelect(JSON.parse(data));
     }, [user]);
 
-    // useEffect(() => {
-    //     function changeSelectCompany() {
-    //         const data = localStorage.getItem('companySelect');
-
-    //         if (data) {
-    //             setCompanySelect(JSON.parse(data));
-    //         }
-    //     }
-
-    //     window.addEventListener('storage', changeSelectCompany);
-    //     return () => {
-    //         window.removeEventListener('storage', changeSelectCompany);
-    //     };
-    // }, []);
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('sidebar-wrap')}>

@@ -27,7 +27,9 @@ function WorkspaceDropDown() {
 
     const handleChangeWorkspace = async (workspaceId) => {
         let res = await patchAccountInfoApi(workspaceId);
-        getWorkspaceContext(res.data.ability);
+        if (res.success) {
+            getWorkspaceContext(res.data.ability);
+        }
     };
 
     const items =
