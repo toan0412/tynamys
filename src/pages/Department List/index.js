@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useContext, useEffect, useState } from 'react';
 import styles from './DepartmentList.module.scss';
 import { Avatar, Input } from 'antd';
-import { getDepartmentSearchApi, getDepartmentApi } from '~/services/UserServices';
+import { getAbilitiesByDepartmentApi, getDepartmentApi } from '~/services/UserServices';
 import DepartmentLevel from '~/components/Layout/components/DepartmentLevel/DepartmentLevel';
 import useDebounce from '~/hooks/useDebounce';
 import { UserContext } from '~/context/UserContext';
@@ -20,7 +20,7 @@ function DepartmentList() {
     useEffect(() => {
         const fetchData = async () => {
             let res = await getDepartmentApi();
-            let res2 = await getDepartmentSearchApi(debouncedValue, '');
+            let res2 = await getAbilitiesByDepartmentApi(debouncedValue, '');
             setDepartmentList(res.data);
             setMemberList(res2);
         };

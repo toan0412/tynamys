@@ -1,0 +1,117 @@
+.position-manager {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.tree-position-wrapper {
+    width: 300px;
+    min-width: 300px;
+    border-right: 1px solid var(--mys-gray-300, var(--ds-border));
+    padding-top: 10px;
+}
+
+.title {
+    position: relative;
+    margin-left: 18px;
+    padding-bottom: 27px;
+    color: var(--mys-gray-800, #3d3d3d);
+    font-size: 1.8rem;
+    font-weight: 600;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: -8px;
+        width: 3.033px;
+        height: 16.176px;
+        background: #38cab3;
+    }
+}
+
+.custom-scrollbar {
+    padding: 0 12px;
+}
+
+//
+
+.position-list-wrapper {
+    flex: 1 1 0%;
+    width: calc(100% - 300px);
+    padding: 10px;
+}
+.list-card {
+    display: grid;
+    gap: 24px;
+    padding: 10px 20px;
+    overflow: auto;
+    align-content: flex-start;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card-position-manager {
+    position: relative;
+    background: #fff;
+    border-radius: 3px;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+    border: 1px solid #e3e3e3;
+    height: fit-content;
+    grid-column: span 1 / span 1;
+}
+
+.content-wrap {
+    padding: 20px;
+    h3 {
+        color: #3d3d3d;
+        font-size: 1.8rem;
+        font-weight: 400;
+    }
+}
+
+.position-name-wrap {
+    display: flex;
+    align-items: stretch;
+    column-gap: 5px;
+    margin-bottom: 5px;
+
+    span {
+        font-size: 1.2rem;
+        color: #3d3d3d;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.position-member {
+    display: flex;
+    span {
+        font-size: 1.2rem;
+        color: #3d3d3d;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.position-tag-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.position-tag-item {
+    color: var(--mys-blue-500, #459bff);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 4px 7px;
+    border-radius: 2px;
+    background: #f2faff;
+}
+
+.menu-dropdown {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    padding: 5px;
+}

@@ -5,7 +5,7 @@ import { UserContext } from '~/context/UserContext';
 import { Button, Dropdown, Space } from 'antd';
 import { PlusOutlined, LockOutlined } from '@ant-design/icons';
 import DepartmentCardDetail from '../DepartmentCardDetail/DepartmentCardDetail';
-import { deleteDepartment, getAbilityApi, getDepartmentSearchApi } from '~/services/UserServices';
+import { deleteDepartment, getAbilityApi, getAbilitiesByDepartmentApi } from '~/services/UserServices';
 import DepartmentCardEdit from '../DepartmentCardEdit/DepartmentCardEdit';
 import DepartmentCardCreate from '../DepartmentCardCreate/DepartmentCardCreate';
 import DeleteModal from '../DeleteModal/DeleteModal';
@@ -28,7 +28,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
     const showViewModal = async (id) => {
         setDepartmentCardId(id);
         let res = await getAbilityApi(id);
-        let res2 = await getDepartmentSearchApi('', id);
+        let res2 = await getAbilitiesByDepartmentApi('', id);
         setDepartmentCardDetail(res.data);
         setAbilities(res2);
         setModalDetail(true);
@@ -37,7 +37,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
     const showEditModal = async (id) => {
         setDepartmentCardId(id);
         let res = await getAbilityApi(id);
-        let res2 = await getDepartmentSearchApi('', '');
+        let res2 = await getAbilitiesByDepartmentApi('', '');
         setDepartmentCardEdit(res.data);
         setAbilities(res2);
         setModalEdit(true);
@@ -46,7 +46,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
     const showEditModalWithId = async () => {
         setDepartmentCardId(departmentCardId);
         let res = await getAbilityApi(departmentCardId);
-        let res2 = await getDepartmentSearchApi('', '');
+        let res2 = await getAbilitiesByDepartmentApi('', '');
         setDepartmentCardEdit(res.data);
         setAbilities(res2);
         setModalDetail(false);
@@ -54,7 +54,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
     };
 
     const showCreateModal = async () => {
-        let res = await getDepartmentSearchApi('', '');
+        let res = await getAbilitiesByDepartmentApi('', '');
         setAbilities(res.data);
         setModalCreate(true);
     };

@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 
 function NotificationDropDown({ children }) {
     const [notificationList, setNotificationList] = useState([]);
-    const [unreadMessage, setUnreadMessage] = useState(false);
+    const [isReadAll, setIsReadAll] = useState(false);
     const [currentTab, setCurrentTab] = useState(4);
 
     const handleChangeTab = async (applyType) => {
@@ -42,11 +42,10 @@ function NotificationDropDown({ children }) {
         fetchData();
     }, []);
 
-    // useEffect(() => {
-    //     const hasUnreadNotification = notificationList.some((notification) => !notification.isRead);
-    //     setUnreadMessage(hasUnreadNotification);
-
-    // }, [notificationList]);
+    useEffect(() => {
+        const hasUnreadNotification = notificationList.some((notification) => !notification.isRead);
+        setIsReadAll(hasUnreadNotification);
+    }, [notificationList]);
 
     const formatTimeDifference = (createdAt) => {
         const currentTime = new Date();
@@ -126,7 +125,7 @@ function NotificationDropDown({ children }) {
                         {
                             key: '4',
                             label: (
-                                <Badge dot={unreadMessage}>
+                                <Badge dot={isReadAll}>
                                     <span>Tất cả</span>
                                 </Badge>
                             ),

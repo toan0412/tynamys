@@ -47,7 +47,7 @@ function Home() {
 
     const dateFormat = 'YYYY/MM/DD';
     const convertDateString = (dateString) => {
-        return dayjs(dateString, 'YYYY/MM/DD').toISOString();
+        return dayjs(dateString, 'YYYY/MM/DD').startOf('day').toISOString();
     };
 
     const convertYearString = (dateString) => {

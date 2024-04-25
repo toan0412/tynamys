@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './AbilityList.module.scss';
 import { Avatar, Table, Tag, Input, Button } from 'antd';
 import { PlusOutlined, FileAddOutlined, LockOutlined } from '@ant-design/icons';
-import { getDepartmentSearchApi } from '~/services/UserServices';
+import { getAbilitiesByDepartmentApi } from '~/services/UserServices';
 import { UserContext } from '~/context/UserContext';
 import './AbilityList.scss';
 import useDebounce from '~/hooks/useDebounce';
@@ -32,14 +32,14 @@ function AbilityList() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let res = await getDepartmentSearchApi(debouncedValue, '');
+                let res = await getAbilitiesByDepartmentApi(debouncedValue, '');
                 setAbilityList(res.data);
             } catch (error) {
                 console.error('Error fetching notification data:', error);
             }
         };
         fetchData();
-    }, [debouncedValue]);
+    }, [debouncedValue, user]);
 
     const abilityListData = Array.isArray(abilityList)
         ? abilityList.map((ability, index) => {
