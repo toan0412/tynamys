@@ -42,10 +42,10 @@ function NotificationDropDown({ children }) {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const hasUnreadNotification = notificationList.some((notification) => !notification.isRead);
-        setIsReadAll(hasUnreadNotification);
-    }, [notificationList]);
+    // useEffect(() => {
+    //     const hasUnreadNotification = notificationList.some((notification) => !notification.isRead);
+    //     setIsReadAll(hasUnreadNotification);
+    // }, [notificationList]);
 
     const formatTimeDifference = (createdAt) => {
         const currentTime = new Date();

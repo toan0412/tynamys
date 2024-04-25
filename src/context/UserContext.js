@@ -36,7 +36,6 @@ const UserProvider = ({ children }) => {
             ...user,
             companyInfo,
         }));
-        localStorage.setItem('workspaceId', companyInfo.companyId);
         localStorage.setItem('companySelect', JSON.stringify(companyInfo));
     };
 

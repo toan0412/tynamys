@@ -5,7 +5,7 @@ import { UserContext } from '~/context/UserContext';
 import { Button, Dropdown, Space } from 'antd';
 import { PlusOutlined, LockOutlined } from '@ant-design/icons';
 import DepartmentCardDetail from '../DepartmentCardDetail/DepartmentCardDetail';
-import { deleteDepartment, getAbilityApi, getAbilitiesByDepartmentApi } from '~/services/UserServices';
+import { deleteDepartment, getDepartmentById, getAbilitiesByDepartmentApi } from '~/services/UserServices';
 import DepartmentCardEdit from '../DepartmentCardEdit/DepartmentCardEdit';
 import DepartmentCardCreate from '../DepartmentCardCreate/DepartmentCardCreate';
 import DeleteModal from '../DeleteModal/DeleteModal';
@@ -27,7 +27,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
 
     const showViewModal = async (id) => {
         setDepartmentCardId(id);
-        let res = await getAbilityApi(id);
+        let res = await getDepartmentById(id);
         let res2 = await getAbilitiesByDepartmentApi('', id);
         setDepartmentCardDetail(res.data);
         setAbilities(res2);
@@ -36,7 +36,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
 
     const showEditModal = async (id) => {
         setDepartmentCardId(id);
-        let res = await getAbilityApi(id);
+        let res = await getDepartmentById(id);
         let res2 = await getAbilitiesByDepartmentApi('', '');
         setDepartmentCardEdit(res.data);
         setAbilities(res2);
@@ -45,7 +45,7 @@ const DepartmentLevel = ({ title, type, departmentList }) => {
 
     const showEditModalWithId = async () => {
         setDepartmentCardId(departmentCardId);
-        let res = await getAbilityApi(departmentCardId);
+        let res = await getDepartmentById(departmentCardId);
         let res2 = await getAbilitiesByDepartmentApi('', '');
         setDepartmentCardEdit(res.data);
         setAbilities(res2);

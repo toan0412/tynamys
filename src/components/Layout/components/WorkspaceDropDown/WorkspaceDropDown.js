@@ -7,7 +7,7 @@ import { Dropdown, Space, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import WorkspaceModal from '../WorkspaceModal/WorkspaceModal';
-import { patchAccountInfoApi } from '~/services/UserServices';
+import { getAbilityApi, patchAccountInfoApi } from '~/services/UserServices';
 
 const cx = classNames.bind(styles);
 
@@ -26,9 +26,14 @@ function WorkspaceDropDown() {
     };
 
     const handleChangeWorkspace = async (workspaceId) => {
-        let res = await patchAccountInfoApi(workspaceId);
-        if (res.success) {
-            getWorkspaceContext(res.data.ability);
+        let currentWorkspace = localStorage.getItem('workspaceId');
+        if (workspaceId !== Number(currentWorkspace)) {
+            let res = await patchAccountInfoApi(workspaceId);
+            localStorage.setItem('workspaceId', res.data.profile.workspaceId);
+            let res2 = await getAbilityApi();
+            if (res2.success) {
+                getWorkspaceContext(res2.data.ability);
+            }
         }
     };
 

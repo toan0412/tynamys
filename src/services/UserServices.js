@@ -79,13 +79,19 @@ const deleteDepartment = (id, isForce) => {
     const payload = { isForce };
     return axios.delete(apiUrl, { data: payload, headers: { 'X-Company-Id': workspaceId } });
 };
-
-// Ability API
-const getAbilityApi = (id) => {
+const getDepartmentById = (id) => {
     const workspaceId = localStorage.getItem('workspaceId');
     const apiUrl = `v1/departments/${id}`;
     return axios.get(apiUrl, { headers: { 'X-Company-Id': workspaceId } });
 };
+
+// Ability API
+const getAbilityApi = () => {
+    const workspaceId = localStorage.getItem('workspaceId');
+    const apiUrl = `v1/abilities/me`;
+    return axios.get(apiUrl, { headers: { 'X-Company-Id': workspaceId } });
+};
+
 const getAbilitiesByDepartmentApi = (search, deptId) => {
     const workspaceId = localStorage.getItem('workspaceId');
     const apiUrl = `v1/abilities?filter=%7B%22abilityDepts.deptId_in%22:[${deptId}],%22abilityUserStatus_in%22:[0,5]%7D&search=${search}&searchFields[]=user.fullName&searchFields[]=user.email&searchFields[]=user.username`;
@@ -118,11 +124,12 @@ export {
     getGoalApi,
     getDepartmentApi,
     getAbilitiesByDepartmentApi,
-    getAbilityApi,
+    getDepartmentById,
     patchDepartmentApi,
     patchDepartmentAbility,
     postDepartment,
     deleteDepartment,
     getDepartmentByFilter,
     getPositionApi,
+    getAbilityApi,
 };

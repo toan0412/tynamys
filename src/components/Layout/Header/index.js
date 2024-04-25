@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from 'antd';
 import MenuDropDown from '../components/MenuDropDown/MenuDropDown';
@@ -15,7 +14,6 @@ const cx = classNames.bind(styles);
 
 function Header() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const navigate = useNavigate();
 
     const showModal = () => {
         setIsModalOpen(true);
