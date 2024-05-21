@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/tynamys/static/css/main.3b2c7cdc.css",
+    "main.js": "/tynamys/static/js/main.77cc2c35.js",
+    "static/js/453.605287e5.chunk.js": "/tynamys/static/js/453.605287e5.chunk.js",
+    "static/media/logo.svg": "/tynamys/static/media/logo.861e6ef4d914364898165aaa9a8f8354.svg",
+    "static/media/bell.svg": "/tynamys/static/media/bell.84829c142167865ead0e7be07fecee9f.svg",
+    "static/media/question.svg": "/tynamys/static/media/question.8d58d4df59db6355b035c0080d88fe4f.svg",
+    "static/media/graduate.svg": "/tynamys/static/media/graduate.9f4832e3eec5fbdb1bba24f9c1d84ed3.svg",
+    "index.html": "/tynamys/index.html",
+    "static/media/search.svg": "/tynamys/static/media/search.7dc5b1d586ee2e3130b4e5529ff22c01.svg",
+    "static/media/creditCard.svg": "/tynamys/static/media/creditCard.275a8434678589496b5ed958851f06b2.svg",
+    "main.3b2c7cdc.css.map": "/tynamys/static/css/main.3b2c7cdc.css.map",
+    "main.77cc2c35.js.map": "/tynamys/static/js/main.77cc2c35.js.map",
+    "453.605287e5.chunk.js.map": "/tynamys/static/js/453.605287e5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3b2c7cdc.css",
+    "static/js/main.77cc2c35.js"
+  ]
+}
