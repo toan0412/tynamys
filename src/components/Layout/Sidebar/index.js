@@ -42,13 +42,20 @@ function Sidebar() {
                             <Menu.SubMenu
                                 key="workspace"
                                 title={
-                                    <div className={cx('workspace-title')}>
-                                        <img src={companySelect.company.photoUrl} alt="logo" width={50} height={50} />
-                                        <div className={cx('workspace-info')}>
-                                            <p>{companySelect.company.displayName}</p>
-                                            <span>{companySelect.company.numberOfUser} Nhân sự</span>
+                                    <Link to="/modify-info">
+                                        <div className={cx('workspace-title')}>
+                                            <img
+                                                src={companySelect.company.photoUrl}
+                                                alt="logo"
+                                                width={50}
+                                                height={50}
+                                            />
+                                            <div className={cx('workspace-info')}>
+                                                <p>{companySelect.company.displayName}</p>
+                                                <span>{companySelect.company.numberOfUser} Nhân sự</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 }
                                 mode="vertical"
                             >

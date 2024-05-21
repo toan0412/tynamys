@@ -11,7 +11,6 @@ import { UserContext } from '~/context/UserContext';
 const cx = classNames.bind(styles);
 
 function DepartmentCardCreate({ modalCreate, abilities, type, handleCancel }) {
-    console.log(abilities);
     const { isDepartmentUpdate } = useContext(UserContext);
     const [mockData, setMockData] = useState([]);
     const [targetKeys, setTargetKeys] = useState([]);
@@ -72,7 +71,6 @@ function DepartmentCardCreate({ modalCreate, abilities, type, handleCancel }) {
 
     //Handle submit
     const HandleCreateDepartmentCard = async () => {
-        console.log(numberOfUser);
         let departmentCardId;
         try {
             let res = await postDepartment(

@@ -3,9 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from '~/components/Layout';
 
-import React, { useContext } from 'react';
-import { UserContext } from '~/context/UserContext';
-import Login from './pages/Login';
+import React from 'react';
 
 function App() {
     return (

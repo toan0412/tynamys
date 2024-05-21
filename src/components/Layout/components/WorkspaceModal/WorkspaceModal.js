@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from './WorkspaceModal.module.scss';
 import { Modal, Form, Input, Select, Avatar, Button, Col, Row } from 'antd';
 import { useState } from 'react';
 import { createCompanyApi } from '~/services/UserServices';
+import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles);
 
 function WorkspaceModal({ isModalOpen, setIsModalOpen }) {
+    const { getWorkspaceContext } = useContext(UserContext);
     const [form] = Form.useForm();
     const [workspace, setWorkspace] = useState({
         workspaceName: '',

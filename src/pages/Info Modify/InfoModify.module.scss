@@ -1,0 +1,58 @@
+.content {
+    max-height: calc(100vh - 60px);
+    height: calc(100vh - 60px);
+}
+
+.modify-info {
+    width: 769px;
+    margin: auto;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.title-edit-account {
+    display: flex;
+    justify-content: start;
+    color: #575757;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.info-account {
+    border: 1px solid var(--ds-border);
+    border-radius: 10px 10px 0 0;
+}
+
+.form-bing-avatar {
+    display: flex;
+    justify-content: center;
+}
+
+.company-avatar {
+    position: relative;
+    top: 62px;
+}
+
+.form-account {
+    padding-top: 80px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+}
+
+.btn-submit {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 12px;
+}
+
+.custom-label {
+    label {
+        font-weight: 600;
+        font-size: 1.6rem !important;
+        line-height: 24px;
+        margin-bottom: 5px;
+        color: #242424;
+    }
+}
