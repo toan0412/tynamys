@@ -117,9 +117,7 @@ function Login() {
                             />
                         </Form.Item>
                         <Form.Item labelCol={{ span: 0 }}>
-                            <a className={cx('login-form-forgot')} href="#">
-                                Quên mật khẩu?
-                            </a>
+                            <p className={cx('login-form-forgot')}>Quên mật khẩu?</p>
                         </Form.Item>
                         <Form.Item
                             wrapperCol={{
