@@ -30,6 +30,7 @@
         "web-vitals": "^2.1.4"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "babel-plugin-module-resolver": "^5.0.0",
         "customize-cra": "^1.0.0",
         "dayjs": "^1.11.10",
